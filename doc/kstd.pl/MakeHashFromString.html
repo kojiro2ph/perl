@@ -1,0 +1,64 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ConvPriceComma.html'>前のページ</a><br>ConvPriceComma </td>
+			<td align='right'> <a href='Round.html'>次のページ</a><br>Round </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>MakeHashFromString</font> --- 文字列から連想配列を作成する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(integer)mode:オプション <br> (string)strtmp:連想配列フォーマット文字列 <br> (string)sp:大区切り <br> (string)sp2:小区切り <br> (string)hn:連想配列の代わりとなる名前</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(hash&nbsp;or&nbsp;global&nbsp;variable)1:連想配列,2:グローバル変数</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;MakeHashFromString&nbsp;{
+ 
+	local($mode,$strtmp,$sp,$sp2,$hn)&nbsp;=&nbsp;@_;
+	local($q,$tmp,$k,$v,@qs,%hash);
+	
+	if($mode&nbsp;eq&nbsp;1)&nbsp;{
+		@qs&nbsp;=&nbsp;split(/$sp/,&nbsp;$strtmp);
+		foreach&nbsp;$tmp&nbsp;(@qs)&nbsp;{
+			($k,$v)&nbsp;=&nbsp;split(/$sp2/,&nbsp;$tmp);
+			$v&nbsp;=~&nbsp;s/%([A-Fa-f0-9][A-Fa-f0-9])/pack("C",&nbsp;hex($1))/eg;
+			$hash{$k}&nbsp;=&nbsp;$v;
+		}
+ 
+		return&nbsp;%hash;
+	}&nbsp;elsif($mode&nbsp;eq&nbsp;2)&nbsp;{
+ 
+		@qs&nbsp;=&nbsp;split(/$sp/,&nbsp;$strtmp);
+		foreach&nbsp;$tmp&nbsp;(@qs)&nbsp;{
+			($k,$v)&nbsp;=&nbsp;split(/$sp2/,&nbsp;$tmp);
+			$v&nbsp;=~&nbsp;s/%([A-Fa-f0-9][A-Fa-f0-9])/pack("C",&nbsp;hex($1))/eg;
+			$tmp&nbsp;=&nbsp;$hn&nbsp;.&nbsp;"x"&nbsp;.&nbsp;$k;
+			$v&nbsp;=~&nbsp;s/
+/\n/g;
+ 
+			${$tmp}&nbsp;=&nbsp;$v;
+		}	
+	}
+ 
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>if($edit_flag&nbsp;eq&nbsp;1)&nbsp;{<br>$adatas&nbsp;=&nbsp;&ReadFileData($MyAddressBookFile,1);<br>@adata&nbsp;=&nbsp;split(/\n/,$adatas);<br> <br>for($i&nbsp;=&nbsp;0;&nbsp;$i&nbsp;&lt;=&nbsp;$#adata;&nbsp;$i++)&nbsp;{<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>&MakeHashFromString(2,$adata[$i],$INI{'GROBAL-StrODJ'},"&nbsp;&lt;&gt;&nbsp;","ADDR");</font><br>if($ADDRxAddrID&nbsp;eq&nbsp;$form{'AddrID'})&nbsp;{<br>$adata[$i]&nbsp;=&nbsp;$adata;<br>last;<br>}<br>}<br> <br><br>(member.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ConvPriceComma.html'>前のページ</a><br>ConvPriceComma </td>
+			<td align='right'> <a href='Round.html'>次のページ</a><br>Round </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

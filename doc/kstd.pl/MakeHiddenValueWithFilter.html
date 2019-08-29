@@ -1,0 +1,61 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ConvPrice.html'>前のページ</a><br>ConvPrice </td>
+			<td align='right'> <a href='StockFileData.html'>次のページ</a><br>StockFileData </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>MakeHiddenValueWithFilter</font> --- 連想配列を&lt;input&nbsp;type=hidden..に作成する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)remove:"v:v"フォーマットのhiddenにしないキー <br> (hash)hash:連想配列</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)strtmp:作成した文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;MakeHiddenValueWithFilter&nbsp;{
+	local($remove,&nbsp;%hash,)&nbsp;=&nbsp;@_;
+	local($strtmp,&nbsp;$key,&nbsp;$value,&nbsp;$tmp,&nbsp;$rem_flag,&nbsp;@removes);
+ 
+
+	@removes&nbsp;=&nbsp;split(/:/,&nbsp;$remove);
+ 
+	while(($key,&nbsp;$value)&nbsp;=&nbsp;each&nbsp;%hash)&nbsp;{
+ 
+		$rem_flag&nbsp;=&nbsp;0;
+ 
+		foreach&nbsp;$tmp&nbsp;(@removes)&nbsp;{
+			if($tmp&nbsp;eq&nbsp;$key)&nbsp;{
+				$rem_flag&nbsp;=&nbsp;1;
+				next;
+			}
+		}
+ 
+		if($rem_flag&nbsp;ne&nbsp;1)&nbsp;{
+			$strtmp&nbsp;=&nbsp;$strtmp&nbsp;.&nbsp;"&lt;input&nbsp;type=\"hidden\"&nbsp;name=\"$key\"&nbsp;value=\"$value\"&gt;\n";
+		}
+	}
+ 
+
+	return&nbsp;$strtmp;
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>if($form{'step'}&nbsp;eq&nbsp;"")&nbsp;{<br> <br>$oid&nbsp;=&nbsp;$form{'oid'};<br> <br>&Init_Order;<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>$StrHidden&nbsp;=&nbsp;&MakeHiddenValueWithFilter("act:step:submit",%form);</font><br> <br>$K&nbsp;=&nbsp;&ConvVal(&JE(&ReadFileData("html/member_rwp.html",3)));<br> <br>}<br>################################################################<br> <br><br>(member.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ConvPrice.html'>前のページ</a><br>ConvPrice </td>
+			<td align='right'> <a href='StockFileData.html'>次のページ</a><br>StockFileData </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

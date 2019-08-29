@@ -1,0 +1,42 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='TrimL.html'>前のページ</a><br>TrimL </td>
+			<td align='right'> <a href='JE.html'>次のページ</a><br>JE </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>SandWitch</font> --- 文字をはさむ
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)mode:オプション1:標準 <br> (string)str:中央の文字 <br> (string)substr:端の文字</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)strtmp:文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;SandWitch&nbsp;{
+	local($mode,$str,$substr)&nbsp;=&nbsp;@_;
+	local($strtmp);
+ 
+
+	if($mode&nbsp;eq&nbsp;1)&nbsp;{
+		$strtmp&nbsp;=&nbsp;join("",$substr,$str,$substr);
+	}
+ 
+	return&nbsp;$strtmp;
+}
+</font></pre></td></tr></table>
+
+			サンプルなし
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='TrimL.html'>前のページ</a><br>TrimL </td>
+			<td align='right'> <a href='JE.html'>次のページ</a><br>JE </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

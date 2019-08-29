@@ -1,0 +1,46 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ListArray.html'>前のページ</a><br>ListArray </td>
+			<td align='right'> <a href='MakeAccountStr.html'>次のページ</a><br>MakeAccountStr </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>CheckAndMakeFile</font> --- ファイルが存在しない場合は作成する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)fpath:ファイルパス(パス+ファイル名) <br> (string)fperm:ファイルのパーミッション</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(boolean):1=作らない,0=作る</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;CheckAndMakeFile&nbsp;{
+	local($fpath,$fperm)&nbsp;=&nbsp;@_;
+ 
+	if(-e&nbsp;$fpath)&nbsp;{
+		return&nbsp;"1";
+	}&nbsp;else&nbsp;{
+		#なければ作る
+		mkdir($fpath,$fperm);
+		return&nbsp;"0";
+	}
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>$strline&nbsp;=~&nbsp;s/\r//g;<br>$strline&nbsp;=~&nbsp;s/\n/<br>/g;<br> <br>($fpath2,$dum)&nbsp;=&nbsp;$fpath&nbsp;=~&nbsp;/(.*\/).*/;<br> <br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>&CheckAndMakeFile($fpath2,0777);</font><br> <br>&RecordFileData($fpath,4,"$strline\n");<br>}<br>}<br> <br><br> <br>(glib.plから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ListArray.html'>前のページ</a><br>ListArray </td>
+			<td align='right'> <a href='MakeAccountStr.html'>次のページ</a><br>MakeAccountStr </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

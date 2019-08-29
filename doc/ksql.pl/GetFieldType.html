@@ -1,0 +1,54 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='GetSpecFieldBySpecKeyFromSpecTable.html'>前のページ</a><br>GetSpecFieldBySpecKeyFromSpecTable </td>
+			<td align='right'> <a href='GetByteFromFieldType.html'>次のページ</a><br>GetByteFromFieldType </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>GetFieldType</font> --- 指定項目のフィールドタイプを取得する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(integer)mode:オプション1:標準 <br>(string)tname:テーブル名 <br>(string)fldname:フィールド名</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)fldtype:フィールドのタイプ</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;GetFieldType&nbsp;{
+	local($mode,$tname,$fldname)&nbsp;=&nbsp;@_;
+	local($i);
+ 
+	if($mode&nbsp;eq&nbsp;1)&nbsp;{
+		&ExecSQL("DESC&nbsp;$tname");
+		@fldname&nbsp;=&nbsp;&MakeArrayBySpecCat("Field");
+		&ExecSQL("DESC&nbsp;$tname");
+		@fldtype&nbsp;=&nbsp;&MakeArrayBySpecCat("Type");
+ 
+		for($i&nbsp;=&nbsp;0;&nbsp;$i&nbsp;&lt;=&nbsp;$#fldname;&nbsp;$i++)&nbsp;{
+			if($fldname[$i]&nbsp;eq&nbsp;$fldname)&nbsp;{
+				return&nbsp;$fldtype[$i];
+			}
+		}
+ 
+		return&nbsp;"0";
+	}
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br>if($fldname[$i]&nbsp;eq&nbsp;"")&nbsp;{<br>$fldname[$i]&nbsp;=&nbsp;"\&nbsp;";<br>}<br> <br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>$fldtype&nbsp;=&nbsp;&GetFieldType(1,$tname,$fldname[$i]);</font><br> <br>#&nbsp;VARCHAR&nbsp;の場合<br>if(($fldtype&nbsp;=~&nbsp;/varchar/))&nbsp;{<br>$fldtype&nbsp;=~&nbsp;/varchar\((.*)\)/;<br>$fldbyte&nbsp;=&nbsp;$1;<br> <br><br>(ksql_oracle.plから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='GetSpecFieldBySpecKeyFromSpecTable.html'>前のページ</a><br>GetSpecFieldBySpecKeyFromSpecTable </td>
+			<td align='right'> <a href='GetByteFromFieldType.html'>次のページ</a><br>GetByteFromFieldType </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

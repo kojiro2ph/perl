@@ -1,0 +1,177 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='SortInOne.html'>前のページ</a><br>SortInOne </td>
+			<td align='right'> <a href='KstdNETxSMTP.html'>次のページ</a><br>KstdNETxSMTP </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>KstdSendMail</font> --- sendmailでメールを送信する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)mode:オプション1:標準2:添付付きメール ($form{'attach1'},$form{'attach_dat1'})3:ＨＴＭＬメール ($content に html文字列を入れる) <br> (string)mailprog:sendmailのフルパス(ルートから) <br> (string)from:送信者情報 <br> (string)to:宛先情報 <br> (string)subject:件名 <br> (string)content:内容</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>なし</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;KstdSendMail&nbsp;{
+	local($mode,$mailprog,$from,$to,$subject,$content)&nbsp;=&nbsp;@_;
+ 
+	if($mode&nbsp;eq&nbsp;1)&nbsp;{
+ 
+		$content&nbsp;=&nbsp;&JJ($content);
+ 
+		if($greturnpath&nbsp;ne&nbsp;"")&nbsp;{
+			$returnpath&nbsp;=&nbsp;$greturnpath;
+		}&nbsp;else&nbsp;{
+			$returnpath&nbsp;=&nbsp;$from;
+		}
+ 
+		if(open(MAIL,"|&nbsp;$mailprog&nbsp;-t&nbsp;-oi"))&nbsp;{
+ 
+			print&nbsp;MAIL&nbsp;"Return-Path:&nbsp;$returnpath\n";
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;MAIL&nbsp;"Replay-To:&nbsp;$from\n";
+			print&nbsp;MAIL&nbsp;"X-Mailer:&nbsp;$from\n";
+			print&nbsp;MAIL&nbsp;"To:&nbsp;$to\n";
+			print&nbsp;MAIL&nbsp;"From:&nbsp;$from\n";
+			print&nbsp;MAIL&nbsp;"Subject:&nbsp;$subject\n";
+			print&nbsp;MAIL&nbsp;"Content-Transfer-Encoding:&nbsp;7bit\n";
+			print&nbsp;MAIL&nbsp;"Content-Type:&nbsp;text/plain;&nbsp;charset=ISO-2022-JP\n\n";
+ 
+			print&nbsp;MAIL&nbsp;"$content";
+ 
+			print&nbsp;MAIL&nbsp;"\n\n";
+			close(MAIL);
+ 
+		}&nbsp;else&nbsp;{
+			#送信エラー
+			$form{'msg'}&nbsp;=&nbsp;"$f4$fred$fb&nbsp;送信できませんでした。$fc$fc$fc&nbsp;&lt;br&gt;&lt;br&gt;";
+			$form{'step'}&nbsp;=&nbsp;"";
+			&Admin;
+			exit(0);
+		}
+	}
+	#添付ファイル付き&nbsp;-------------
+	elsif($mode&nbsp;eq&nbsp;2)&nbsp;{
+ 
+		$bdry&nbsp;=&nbsp;int(rand(10000000));
+ 
+		open(SEND,"|$mailprog&nbsp;$to");
+		#FROM
+		$return_path&nbsp;=&nbsp;$from;
+		$from&nbsp;=&nbsp;"From:&nbsp;$from";
+		$from=&mimeencode($from);
+		#SUBJECT
+		$subject="Subject:&nbsp;$subject";
+		$subject=&mimeencode($subject);
+		#MSG
+		$msg&nbsp;=&nbsp;$content;
+		&jcode'convert(*msg,'jis');
+ 
+
+		##&nbsp;ヘッダー出力部分&nbsp;------------------------
+		print&nbsp;MAIL&nbsp;"Return-Path:&nbsp;$return_path\n";
+		print&nbsp;SEND&nbsp;"$from\n";
+		print&nbsp;SEND&nbsp;'MIME-Version:&nbsp;1.0',"\n";
+		print&nbsp;SEND&nbsp;"To:&nbsp;$form{'to'}\n";
+ 
+		#if($form{'cc'}&nbsp;ne&nbsp;""){
+		#	$cc&nbsp;=&mimeencode($form{'cc'});
+		#	print&nbsp;SEND&nbsp;"Cc:&nbsp;$cc\n";
+		#}
+		#if($form{'bcc'}&nbsp;ne&nbsp;""){
+		#	$bcc&nbsp;=&mimeencode($form{'bcc'});
+		#	print&nbsp;SEND&nbsp;"Bcc:&nbsp;$bcc\n";
+		#}
+		
+		print&nbsp;SEND&nbsp;"$subject\n";
+		print&nbsp;SEND&nbsp;'Content-Transfer-Encoding:&nbsp;7bit'."\n";
+		print&nbsp;SEND&nbsp;"Content-Type:&nbsp;multipart/mixed;&nbsp;boundary=\"$bdry\"\n";
+		print&nbsp;SEND&nbsp;"\n\n";
+ 
+
+		##&nbsp;ボディー出力部分&nbsp;-----------------------
+ 
+		print&nbsp;SEND&nbsp;"--$bdry\n";
+		print&nbsp;SEND&nbsp;'Content-Type:&nbsp;text/plain;&nbsp;charset=ISO-2022-JP'."\n";
+		print&nbsp;SEND&nbsp;"\n";
+		print&nbsp;SEND&nbsp;"$msg\n";
+		print&nbsp;SEND&nbsp;"\n";
+ 
+		##&nbsp;添付出力部分&nbsp;-----------------------
+ 
+		$attach_name&nbsp;=&nbsp;$form{'attach1'};
+		$attach_type&nbsp;=&nbsp;&DetectFileType($form{'attach1'});
+		$attach_dat&nbsp;=&nbsp;&EncodeBase64a($form{'attach_dat1'});
+ 
+		print&nbsp;SEND&nbsp;"--$bdry\n";
+		print&nbsp;SEND&nbsp;"Content-Type:&nbsp;$attach_type".';&nbsp;'."name=\"$attach_name\"\n";
+		print&nbsp;SEND&nbsp;'Content-Disposition:&nbsp;attachment;'."\n";
+	&nbsp;	print&nbsp;SEND&nbsp;"&nbsp;filename=\"$attach_name\"\n";
+	&nbsp;	print&nbsp;SEND&nbsp;'Content-Transfer-Encoding:&nbsp;base64'."\n";
+		print&nbsp;SEND&nbsp;"\n";
+		print&nbsp;SEND&nbsp;"$attach_dat";
+		print&nbsp;SEND&nbsp;"\n";
+		print&nbsp;SEND&nbsp;"--$bdry--\n";
+		close&nbsp;SEND;
+	}
+	#ＨＴＭＬメール&nbsp;-------------
+	elsif($mode&nbsp;eq&nbsp;3)&nbsp;{
+ 
+		$content&nbsp;=&nbsp;&JJ($content);
+ 
+		if($greturnpath&nbsp;ne&nbsp;"")&nbsp;{
+			$returnpath&nbsp;=&nbsp;$greturnpath;
+		}&nbsp;else&nbsp;{
+			$returnpath&nbsp;=&nbsp;$from;
+		}
+ 
+		#SUBJECT
+		$subject="Subject:&nbsp;$subject";
+		$subject=&mimeencode($subject);
+ 
+
+		if(open(MAIL,"|&nbsp;$mailprog&nbsp;-t&nbsp;-oi"))&nbsp;{
+ 
+			print&nbsp;MAIL&nbsp;"Return-Path:&nbsp;$returnpath\n";
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;MAIL&nbsp;"Replay-To:&nbsp;$from\n";
+			print&nbsp;MAIL&nbsp;"To:&nbsp;$to\n";
+			print&nbsp;MAIL&nbsp;"From:&nbsp;$from\n";
+			print&nbsp;MAIL&nbsp;"$subject\n";
+			print&nbsp;MAIL&nbsp;"Content-Transfer-Encoding:&nbsp;7bit\n";
+			print&nbsp;MAIL&nbsp;"Content-Type:&nbsp;text/html;&nbsp;charset=ISO-2022-JP\n\n";
+ 
+			print&nbsp;MAIL&nbsp;"$content";
+ 
+			print&nbsp;MAIL&nbsp;"\n\n";
+			close(MAIL);
+ 
+		}&nbsp;else&nbsp;{
+			#送信エラー
+			$form{'msg'}&nbsp;=&nbsp;"$f4$fred$fb&nbsp;送信できませんでした。$fc$fc$fc&nbsp;&lt;br&gt;&lt;br&gt;";
+			$form{'step'}&nbsp;=&nbsp;"";
+			&Admin;
+			exit(0);
+		}
+ 
+	}
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br>#print&nbsp;&ConvHTMLTag($content);<br> <br>&jcode'convert(*content,"jis");<br> <br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>&KstdSendMail($mode,$mailprog,"gurume\@gurume.net",$to,$subject,$content);</font><br>}<br> <br>######################################################################<br> <br>sub&nbsp;Thankyou&nbsp;{<br> <br><br>(bosyu.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='SortInOne.html'>前のページ</a><br>SortInOne </td>
+			<td align='right'> <a href='KstdNETxSMTP.html'>次のページ</a><br>KstdNETxSMTP </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

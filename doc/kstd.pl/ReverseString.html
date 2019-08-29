@@ -1,0 +1,45 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeAccountStr.html'>前のページ</a><br>MakeAccountStr </td>
+			<td align='right'> <a href='ConvVal.html'>次のページ</a><br>ConvVal </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>ReverseString</font> --- 文字列を逆にする
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)strtmp:逆に文字列</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)strtmp:逆にした文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;ReverseString&nbsp;{
+	local($strtmp)&nbsp;=&nbsp;@_;
+	local(@strarray);
+ 
+	@strarray&nbsp;=&nbsp;split(//,$strtmp);
+	@strarray&nbsp;=&nbsp;reverse(@strarray);
+	$strtmp&nbsp;=&nbsp;join("",@strarray);
+ 
+	return&nbsp;$strtmp;
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>@BackupDirArray&nbsp;=&nbsp;grep&nbsp;{<br>$_&nbsp;.=&nbsp;"/";<br>}&nbsp;@BackupDirArray;<br> <br>@BackupDateArray&nbsp;=&nbsp;grep&nbsp;{<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>$_&nbsp;=&nbsp;&ReverseString($_);</font><br>chop;<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>$_&nbsp;=&nbsp;&ReverseString($_);</font><br>$_&nbsp;=~&nbsp;/(....)(..)(..)(..)(..)(..)/;<br>$_&nbsp;=&nbsp;join(":",$1,$2,$3,$4,$5,$6);<br>$_&nbsp;=&nbsp;&ConvDateString($_,2,":");<br> <br><br>(backup.plから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeAccountStr.html'>前のページ</a><br>MakeAccountStr </td>
+			<td align='right'> <a href='ConvVal.html'>次のページ</a><br>ConvVal </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

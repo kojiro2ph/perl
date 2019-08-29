@@ -1,0 +1,49 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ConvHTMLTag.html'>前のページ</a><br>ConvHTMLTag </td>
+			<td align='right'> <a href='PrintMETA.html'>次のページ</a><br>PrintMETA </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>ConvDateString</font> --- 時刻文字列変換処理
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)strtmp:変換する文字列 <br> (string)way:オプション1:年月日時で返す2:年月日時分で返す</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)時刻文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;ConvDateString&nbsp;{
+	local($strtmp,$way,$sp)&nbsp;=&nbsp;@_;
+	local($year,$mon,$date,$hour,$min,$sec);
+ 
+	$sp&nbsp;=&nbsp;"_"&nbsp;if($sp&nbsp;eq&nbsp;"");
+ 
+	if($way&nbsp;eq&nbsp;1)&nbsp;{
+		($year,$mon,$date,$hour,$min,$sec)&nbsp;=&nbsp;split(/$sp/,$strtmp);
+		return&nbsp;"$year年$mon月$date日$hour時";
+	}&nbsp;elsif($way&nbsp;eq&nbsp;2)&nbsp;{
+		($year,$mon,$date,$hour,$min,$sec)&nbsp;=&nbsp;split(/$sp/,$strtmp);
+		return&nbsp;"$year年$mon月$date日$hour時$min分";
+	}
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>#注文番号取得<br>$form{'OrderID'}&nbsp;=&nbsp;$OrderID&nbsp;=&nbsp;&GetNewOrderNumber;<br> <br>#注文時間取得<br> <br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>$OrderTimexJP&nbsp;=&nbsp;&ConvDateString(&GetSpecDateString(&GetCurTime),2,":");</font><br>$form{'OrderTime'}&nbsp;=&nbsp;$OrderTime&nbsp;=&nbsp;&GetDateString;<br> <br>#カート情報を購入商品情報配列に格納<br>@oGoodsInfoArray&nbsp;=&nbsp;split(/$INI{'GROBAL-StrODJ'}/,$form{'cinfo'});<br> <br><br> <br>(order.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ConvHTMLTag.html'>前のページ</a><br>ConvHTMLTag </td>
+			<td align='right'> <a href='PrintMETA.html'>次のページ</a><br>PrintMETA </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

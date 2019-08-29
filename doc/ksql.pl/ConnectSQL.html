@@ -1,0 +1,47 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='Init_SQL.html'>前のページ</a><br>Init_SQL </td>
+			<td align='right'> <a href='DisconnectSQL.html'>次のページ</a><br>DisconnectSQL </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>ConnectSQL</font> --- ＳＱＬに接続する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'> [Return       ] なし [Input        ]<br>(string)driver:ドライバ文字列 <br>(string)database:データベース名 <br>(string)hostname:ホスト名 <br>(string)port:ポート番号 <br>(string)user:ユーザー名 <br>(string)password:パスワード</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>なし</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;ConnectSQL&nbsp;{
+	local($driver,$database,$hostname,$port,$user,$password)&nbsp;=&nbsp;@_;
+	local($dsn);
+ 
+&nbsp;	$dsn&nbsp;=&nbsp;"DBI:$driver:database=$database;host=$hostname;port=$port";&nbsp;#ＤＳＮ変数初期化
+	$dbh&nbsp;=&nbsp;DBI-&gt;connect($dsn,&nbsp;$user,&nbsp;$password);	#接続実行
+	print&nbsp;"$dbh-&gt;errstr"&nbsp;if(not&nbsp;$dbh);
+	$drh&nbsp;=&nbsp;DBI-&gt;install_driver("mysql");	#ドライバインストール
+	print&nbsp;"$dbh-&gt;errstr"&nbsp;if(not&nbsp;$dbh);
+ 
+
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>$form{'rlib'}&nbsp;=&nbsp;"enter"&nbsp;if($form{'rlib'}&nbsp;eq&nbsp;"");<br>require&nbsp;"$INI{'LIB-Admin'}$form{'rlib'}.pl";<br> <br><br>#ＳＱＬ接続&nbsp;▼▼▼▼▼▼▼<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>&pConnectSQL;</font><br> <br><br>#ホール<br>if($form{'act'}&nbsp;eq&nbsp;"")&nbsp;{<br>&Enter;<br> <br><br>(admin.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='Init_SQL.html'>前のページ</a><br>Init_SQL </td>
+			<td align='right'> <a href='DisconnectSQL.html'>次のページ</a><br>DisconnectSQL </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

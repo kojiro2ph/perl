@@ -1,0 +1,39 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ConvCSVString.html'>前のページ</a><br>ConvCSVString </td>
+			<td align='right'> <a href='UpdateINIFile.html'>次のページ</a><br>UpdateINIFile </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>ConvInputString</font> --- 一行が１データになるための文字列変換関数
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)strtmp:変換する文字列</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)strtmp:変換した文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;ConvInputString&nbsp;{
+	local($strtmp)&nbsp;=&nbsp;@_;
+ 
+	$strtmp&nbsp;=~&nbsp;s/
+/\n/g;
+ 
+	return&nbsp;$strtmp;
+}
+</font></pre></td></tr></table>
+
+			サンプルなし
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ConvCSVString.html'>前のページ</a><br>ConvCSVString </td>
+			<td align='right'> <a href='UpdateINIFile.html'>次のページ</a><br>UpdateINIFile </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

@@ -1,0 +1,48 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='GetFieldType.html'>前のページ</a><br>GetFieldType </td>
+			<td align='right'> <a href='MakeStrSETFromHashWithFilter.html'>次のページ</a><br>MakeStrSETFromHashWithFilter </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>GetByteFromFieldType</font> --- 指定フィールドタイプからバイト数を取得する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)fldtype:フィールドのタイプ</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)strtmp:バイト数</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;GetByteFromFieldType&nbsp;{
+	local($fldtype)&nbsp;=&nbsp;@_;
+ 
+	if($fldtype&nbsp;=~&nbsp;/varchar/)&nbsp;{
+		$fldtype&nbsp;=~&nbsp;/varchar\((.*)\)/;
+		$strtmp&nbsp;=&nbsp;$1;
+	}
+	elsif($fldtype&nbsp;=~&nbsp;/text/)&nbsp;{
+		$strtmp&nbsp;=&nbsp;5000;
+	}
+ 
+	return&nbsp;$strtmp;
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br>########################################<br>#&nbsp;指定フィールドタイプからバイト数を取得する<br>########################################<br> <br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>sub&nbsp;GetByteFromFieldType&nbsp;{</font><br>local($fldtype)&nbsp;=&nbsp;@_;<br> <br>if($fldtype&nbsp;=~&nbsp;/varchar/)&nbsp;{<br>$fldtype&nbsp;=~&nbsp;/varchar\((.*)\)/;<br>$strtmp&nbsp;=&nbsp;$1;<br> <br><br>(ksql_oracle.plから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='GetFieldType.html'>前のページ</a><br>GetFieldType </td>
+			<td align='right'> <a href='MakeStrSETFromHashWithFilter.html'>次のページ</a><br>MakeStrSETFromHashWithFilter </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

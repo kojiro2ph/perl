@@ -1,0 +1,62 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeTempLabel.html'>前のページ</a><br>MakeTempLabel </td>
+			<td align='right'> <a href='KstdSendMail.html'>次のページ</a><br>KstdSendMail </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>SortInOne</font> --- 配列中の重複をなくす
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string array)strArray:重複をなくす配列</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string&nbsp;array)tmpArray:重複をなくした配列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;SortInOne&nbsp;{
+	local(@strArray)&nbsp;=&nbsp;@_;
+	local(@tmpArray,$flag,$i,$pcnt,$j);
+ 
+	$flag&nbsp;=&nbsp;0;
+	#&nbsp;$pcnt&nbsp;=&nbsp;0;
+ 
+		for($i&nbsp;=&nbsp;0;&nbsp;$i&nbsp;&lt;=&nbsp;$#strArray;&nbsp;$i++)&nbsp;{
+			$flag&nbsp;=&nbsp;0;	
+			if(@tmpArray&nbsp;eq&nbsp;"")&nbsp;{
+				$tmpArray[0]&nbsp;=&nbsp;$strArray[$i];
+			}&nbsp;else&nbsp;{
+				for($j&nbsp;=&nbsp;0;&nbsp;$j&nbsp;&lt;=&nbsp;$#tmpArray;&nbsp;$j++)&nbsp;{
+					if($strArray[$i]&nbsp;eq&nbsp;$tmpArray[$j])&nbsp;{
+						$flag&nbsp;=&nbsp;1;
+					break;
+					}
+				}
+ 
+				if($flag&nbsp;eq&nbsp;0)&nbsp;{
+					$tmpArray[$#tmpArray&nbsp;+&nbsp;1]&nbsp;=&nbsp;$strArray[$i];
+				}
+			}
+		}
+ 
+	return&nbsp;@tmpArray;
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>@tmp&nbsp;=&nbsp;&MakeArrayBySpecCat("Field");<br> <br>if(&StringMatchToArray("ID$form{'step'}",@tmp)&nbsp;eq&nbsp;"1")&nbsp;{<br>&ExecSQL($q);<br>@tmp&nbsp;=&nbsp;&MakeArrayBySpecCat($q_selectKey);<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>@tmp&nbsp;=&nbsp;&SortInOne(@tmp);</font><br> <br>#二階層以上なら親階層表示&nbsp;----------<br>if($form{'step'}&nbsp;&gt;&nbsp;1)&nbsp;{<br>($oya)&nbsp;=&nbsp;$form{'q'}&nbsp;=~&nbsp;/(....).*/;<br>$catName&nbsp;=&nbsp;&GetCatNameByCatKey($oya);<br> <br><br>(search.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeTempLabel.html'>前のページ</a><br>MakeTempLabel </td>
+			<td align='right'> <a href='KstdSendMail.html'>次のページ</a><br>KstdSendMail </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

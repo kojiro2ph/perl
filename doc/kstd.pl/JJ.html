@@ -1,0 +1,42 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='InitFromString.html'>前のページ</a><br>InitFromString </td>
+			<td align='right'> <a href='FileTransferVer1.html'>次のページ</a><br>FileTransferVer1 </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>JJ</font> --- ＪＩＳコード変換
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)strtmp:変換する文字</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)変換した文字</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;JJ&nbsp;{
+	local($strtmp)&nbsp;=&nbsp;@_;
+ 
+	&jcode'convert(*strtmp,&nbsp;'jis');
+ 
+	return&nbsp;$strtmp;
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>$smtp&nbsp;=&nbsp;Net::SMTP-&gt;new("mail.gurume.net",Hello=&gt;"mail.gurume.net");<br> <br>$smtp-&gt;mail($form{'from'});<br>$smtp-&gt;to($form{'to'});<br> <br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>#$form{'subject'}&nbsp;=&nbsp;encode_mimeword(&JJ($form{'subject'}),'B','iso-2022-jp');</font><br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>$form{'msg'}&nbsp;=&nbsp;&JJ($form{'msg'});</font><br> <br>$smtp-&gt;data();<br>$smtp-&gt;datasend("From:$form{'from'}\n");<br>$smtp-&gt;datasend("To:$form{'to'}\n");<br> <br><br>(webmail.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='InitFromString.html'>前のページ</a><br>InitFromString </td>
+			<td align='right'> <a href='FileTransferVer1.html'>次のページ</a><br>FileTransferVer1 </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

@@ -1,0 +1,63 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='Impact.html'>前のページ</a><br>Impact </td>
+			<td align='right'> <a href='Init_Multipart.html'>次のページ</a><br>Init_Multipart </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>Init_Form</font> --- ブラウザ引数文字コード変換処理
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)charcode:変換する文字コード</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>なし</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;Init_Form&nbsp;{
+	local($query,&nbsp;@assocarray,&nbsp;$assoc,&nbsp;$property,&nbsp;$value,&nbsp;$charcode,&nbsp;$method);
+		$charcode&nbsp;=&nbsp;$_[0];
+		$method&nbsp;=&nbsp;$ENV{'REQUEST_METHOD'};
+		$method&nbsp;=~&nbsp;tr/A-Z/a-z/;
+ 
+		#-------------------------------
+		if($ENV{'CONTENT_TYPE'}&nbsp;=~&nbsp;/multipart/)&nbsp;{
+			&Init_Multipart($charcode);
+			return&nbsp;0;
+		}
+		#-------------------------------
+ 
+		if&nbsp;($method&nbsp;eq&nbsp;'post')&nbsp;{
+			read(STDIN,&nbsp;$query,&nbsp;$ENV{'CONTENT_LENGTH'});
+		}&nbsp;else&nbsp;{
+	&nbsp;&nbsp;		$query&nbsp;=&nbsp;$ENV{'QUERY_STRING'};
+		}
+		@assocarray&nbsp;=&nbsp;split(/&/,&nbsp;$query);
+		foreach&nbsp;$assoc&nbsp;(@assocarray)&nbsp;{
+			($property,&nbsp;$value)&nbsp;=&nbsp;split(/=/,&nbsp;$assoc);
+			$value&nbsp;=~&nbsp;tr/+/&nbsp;/;
+			$value&nbsp;=~&nbsp;s/%([A-Fa-f0-9][A-Fa-f0-9])/pack("C",&nbsp;hex($1))/eg;
+			&jcode'convert(*value,&nbsp;$charcode);
+			$value&nbsp;=~&nbsp;s/\r//g;
+			$form{$property}&nbsp;=&nbsp;$value;
+	&nbsp;&nbsp;&nbsp;&nbsp;	}
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>require&nbsp;"$StdLib";	#オリジナル標準ライブラリ初期化<br>require&nbsp;"$SqlLib";	#ＳＱＬライブラリ初期化<br>require&nbsp;"$JcodeLib";	#文字コード変換ライブラリ初期化<br>require&nbsp;"$Glib";	#グルメネットライブラリ初期化<br> <br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>&Init_Form("euc");</font><br>&Init_Tag;<br> <br>%INI&nbsp;=&nbsp;{};<br>%INI&nbsp;=&nbsp;&InitINIData(1,$MainINIFile);<br> <br><br> <br>(admin.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='Impact.html'>前のページ</a><br>Impact </td>
+			<td align='right'> <a href='Init_Multipart.html'>次のページ</a><br>Init_Multipart </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

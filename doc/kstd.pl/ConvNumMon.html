@@ -1,0 +1,53 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='StringMatchToArray.html'>前のページ</a><br>StringMatchToArray </td>
+			<td align='right'> <a href='OpenBinaryFileData.html'>次のページ</a><br>OpenBinaryFileData </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>ConvNumMon</font> --- アルファベットの月情報を数字の月に変換する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)strtmp:英語の月</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>数字の月</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;ConvNumMon&nbsp;{
+	local($strtmp)&nbsp;=&nbsp;@_;
+ 
+	if($strtmp&nbsp;eq&nbsp;"Jan")&nbsp;{$strtmp&nbsp;=&nbsp;"1";}
+	elsif($strtmp&nbsp;eq&nbsp;"Feb")&nbsp;{$strtmp&nbsp;=&nbsp;"2";}
+	elsif($strtmp&nbsp;eq&nbsp;"Mar")&nbsp;{$strtmp&nbsp;=&nbsp;"3";}
+	elsif($strtmp&nbsp;eq&nbsp;"Apr")&nbsp;{$strtmp&nbsp;=&nbsp;"4";}
+	elsif($strtmp&nbsp;eq&nbsp;"May")&nbsp;{$strtmp&nbsp;=&nbsp;"5";}
+	elsif($strtmp&nbsp;eq&nbsp;"Jun")&nbsp;{$strtmp&nbsp;=&nbsp;"6";}
+	elsif($strtmp&nbsp;eq&nbsp;"Jul")&nbsp;{$strtmp&nbsp;=&nbsp;"7";}
+	elsif($strtmp&nbsp;eq&nbsp;"Aug")&nbsp;{$strtmp&nbsp;=&nbsp;"8";}
+	elsif($strtmp&nbsp;eq&nbsp;"Sep")&nbsp;{$strtmp&nbsp;=&nbsp;"9";}
+	elsif($strtmp&nbsp;eq&nbsp;"Oct")&nbsp;{$strtmp&nbsp;=&nbsp;"10";}
+	elsif($strtmp&nbsp;eq&nbsp;"Nov")&nbsp;{$strtmp&nbsp;=&nbsp;"11";}
+	elsif($strtmp&nbsp;eq&nbsp;"Dec")&nbsp;{$strtmp&nbsp;=&nbsp;"12";}
+ 
+	return&nbsp;$strtmp;
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br>#YEAR<br>@tmp&nbsp;=&nbsp;split(//,$pyear);<br>$pyear&nbsp;=&nbsp;$tmp[2]&nbsp;.&nbsp;$tmp[3];<br>#MONTH<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>$pmon&nbsp;=&nbsp;&ConvNumMon($pmon);</font><br>#TIME<br>@tmp&nbsp;=&nbsp;split(/:/,$ptime);<br>$ptime&nbsp;=&nbsp;join(":",$tmp[0],$tmp[1]);<br> <br><br> <br><br>(webmail.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='StringMatchToArray.html'>前のページ</a><br>StringMatchToArray </td>
+			<td align='right'> <a href='OpenBinaryFileData.html'>次のページ</a><br>OpenBinaryFileData </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

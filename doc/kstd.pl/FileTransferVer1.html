@@ -1,0 +1,91 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='JJ.html'>前のページ</a><br>JJ </td>
+			<td align='right'> <a href='GetMaxNumberFromINIHash.html'>次のページ</a><br>GetMaxNumberFromINIHash </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>FileTransferVer1</font> --- Tmpを利用してファイルアップロード処理&nbsp;
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'> [Input        ] なし</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>なし</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;FileTransferVer1&nbsp;{
+	#送れるファイルのサイズの制限はここの数字で指定
+	return&nbsp;if($ENV{'CONTENT_LENGTH'}&nbsp;&gt;&nbsp;500000);
+ 
+	#ファイル名クリア
+	$filedata='';
+	#ヘッダ獲得
+	open(TMP,"Tmp");
+ 
+	while(&lt;TMP&gt;){
+		#動作がきになる人は下のコメントをはずしてみよう
+		#print&nbsp;&PH;
+		#print&nbsp;"decode0:$_&lt;br&gt;\n";
+ 
+		#ファイル転送。CR+LFで終了
+		last&nbsp;if($_=~/^\r\n/);
+ 
+		#-----っていうヘッダの後ろについている数字を取り出す。終了判別のため
+		$bound&nbsp;=&nbsp;$_&nbsp;if($_=~/^--/);
+ 
+		#ヘッダの中から実ファイル名を取り出す
+		if&nbsp;($_=~/filename=/i){
+			#効率悪いのは正規表現苦手だから♪　まず”の削除
+			$file&nbsp;=$_;
+			@filename=split(/\"/,$file);
+			foreach&nbsp;$file&nbsp;(@filename)&nbsp;{
+				if&nbsp;($file&nbsp;=~/\./){$filedata&nbsp;=$file;}
+			}
+			#効率悪いのは正規表現苦手だから♪　￥の削除。ファイル名の判別は.で行う
+			$file&nbsp;="test\\$filedata\\test";
+			@filename=split(/\\/,$file);
+			foreach&nbsp;$file&nbsp;(@filename)&nbsp;{
+				if&nbsp;($file&nbsp;=~/\./){$filedata&nbsp;=$file;}
+			}
+		}
+	}
+ 
+	#ファイルの転送を行うの
+	if&nbsp;($filedata&nbsp;ne&nbsp;''){
+		#print&nbsp;"$filedataの転送：";
+		$bound=~s/\r\n//;
+		open(DATA,"&gt;$datdir$filedata")&nbsp;||&nbsp;print&nbsp;"オープン失敗&lt;br&gt;\n";
+		while(&lt;TMP&gt;){
+			last&nbsp;if($_=~/^$bound/);
+			print&nbsp;DATA&nbsp;$_;
+		}
+		#print&nbsp;"終了";
+		close&nbsp;(DATA);
+		#print&nbsp;"&lt;br&gt;\n";
+	}else{
+		#print&nbsp;"ファイル名をちゃんと入れてね&lt;br&gt;\n";
+		print&nbsp;&PH;
+		print&nbsp;&WmErrMsg("アップロードエラー","&lt;h3&gt;ファイル名を入力して下さい&lt;/h3&gt;");
+		exit(0);
+	}
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>print&nbsp;$strhtml;<br>}<br>#ファイル転送---------------<br>elsif($form{'step'}&nbsp;eq&nbsp;"2")&nbsp;{<br>#print&nbsp;&PH;<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>&FileTransferVer1;</font><br>#print&nbsp;"tootteru";<br>$form{'step'}&nbsp;=&nbsp;"1";<br>&FileMan;<br>}<br>#ファイル削除---------------<br> <br><br>(webmail.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='JJ.html'>前のページ</a><br>JJ </td>
+			<td align='right'> <a href='GetMaxNumberFromINIHash.html'>次のページ</a><br>GetMaxNumberFromINIHash </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

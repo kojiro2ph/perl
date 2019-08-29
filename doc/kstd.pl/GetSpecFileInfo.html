@@ -1,0 +1,39 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='GetSpecDateString.html'>前のページ</a><br>GetSpecDateString </td>
+			<td align='right'> <a href='MakeSelectionByStrArray.html'>次のページ</a><br>MakeSelectionByStrArray </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>GetSpecFileInfo</font> --- ファイル情報を取得する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)fpath:ファイルパス <br> (string)key:取得する情報の名称</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string):keyの値</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;GetSpecFileInfo&nbsp;{
+	local($fpath,$key)&nbsp;=&nbsp;@_;
+	local($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size,$atime,$mtime,$ctime,$blksize,$blocks);
+ 
+	($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size,$atime,$mtime,$ctime,$blksize,$blocks)&nbsp;=&nbsp;stat($fpath);
+ 
+	return&nbsp;${$key};
+}
+</font></pre></td></tr></table>
+
+			サンプルなし
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='GetSpecDateString.html'>前のページ</a><br>GetSpecDateString </td>
+			<td align='right'> <a href='MakeSelectionByStrArray.html'>次のページ</a><br>MakeSelectionByStrArray </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

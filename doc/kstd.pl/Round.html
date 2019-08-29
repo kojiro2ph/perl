@@ -1,0 +1,43 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeHashFromString.html'>前のページ</a><br>MakeHashFromString </td>
+			<td align='right'> <a href='GetDltDateString.html'>次のページ</a><br>GetDltDateString </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>Round</font> --- 四捨五入する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(integer)num:数字 <br> (integer)decimals:四捨五入する桁</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(integer)四捨五入した数字</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;Round&nbsp;{
+&nbsp;&nbsp;local($num,&nbsp;$decimals)&nbsp;=&nbsp;@_;
+&nbsp;&nbsp;local($format,&nbsp;$magic);
+&nbsp;&nbsp;$format&nbsp;=&nbsp;'%.'&nbsp;.&nbsp;$decimals&nbsp;.&nbsp;'f';
+&nbsp;&nbsp;$magic&nbsp;=&nbsp;($num&nbsp;&gt;&nbsp;0)&nbsp;?&nbsp;0.5&nbsp;:&nbsp;-0.5;
+&nbsp;&nbsp;sprintf($format,&nbsp;int(($num&nbsp;*&nbsp;(10&nbsp;**&nbsp;$decimals))&nbsp;+&nbsp;$magic)&nbsp;/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(10&nbsp;**&nbsp;$decimals));
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br>#生年月日整理&nbsp;----------<br>&SetBirth;<br> <br>#ポイント計算<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>$form{'Point'}&nbsp;=&nbsp;&Round($form{'gGoodsPriceTotal'}&nbsp;*&nbsp;$INI{'POINT-DiscountPer'},0);</font><br> <br>#メンバー追加<br>&InsertFromHash($INI{'GROBAL-MiDBName'},*form);<br> <br>#&nbsp;注文ＩＤにメンバーＩＤを記入する<br> <br><br>(member.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeHashFromString.html'>前のページ</a><br>MakeHashFromString </td>
+			<td align='right'> <a href='GetDltDateString.html'>次のページ</a><br>GetDltDateString </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

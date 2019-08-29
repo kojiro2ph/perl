@@ -1,0 +1,56 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='SuffleArray.html'>前のページ</a><br>SuffleArray </td>
+			<td align='right'> <a href='StopWatchVer1.html'>次のページ</a><br>StopWatchVer1 </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>DetectFileType</font> --- ファイルタイプ判別
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)strtmp:ファイル名(拡張子込み)</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)strline:拡張子情報</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;DetectFileType&nbsp;{
+	local($strtmp)&nbsp;=&nbsp;@_;
+	local($fname,$fext);
+ 
+	($fname,$fext)&nbsp;=&nbsp;split(/./,$strtmp);
+ 
+	if($fext&nbsp;eq&nbsp;'gif'){
+		$strline&nbsp;=&nbsp;'image/gif';
+	}
+	elsif(($fext&nbsp;eq&nbsp;'jpeg')&nbsp;or&nbsp;($f_type&nbsp;eq&nbsp;'jpg')){
+		$strline&nbsp;=&nbsp;'image/jpeg';
+	}
+	elsif($fext&nbsp;eq&nbsp;'bmp'){
+		$strline&nbsp;=&nbsp;'image/bmp';
+	}
+	else{
+		$strline&nbsp;=&nbsp;'application/octet-stream';
+	}
+ 
+	return&nbsp;$strline;
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>print&nbsp;SEND&nbsp;"$msg\n";<br>print&nbsp;SEND&nbsp;"\n";<br> <br><br>$attach_name&nbsp;=&nbsp;$form{'attach1'};<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>$attach_type&nbsp;=&nbsp;&DetectFileType($form{'attach1'});</font><br>$tmp01&nbsp;=&nbsp;join("",&WmMakeUserQueryPath($form{'myid'},$INI{'GROBAL-UserFileFolderName'}),"/",$form{'attach1'});<br>$attach_dat&nbsp;=&nbsp;&OpenBinaryFileData($tmp01);<br>$attach_dat&nbsp;=&nbsp;&EncodeBase64a($attach_dat);<br> <br><br> <br><br>(webmail.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='SuffleArray.html'>前のページ</a><br>SuffleArray </td>
+			<td align='right'> <a href='StopWatchVer1.html'>次のページ</a><br>StopWatchVer1 </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

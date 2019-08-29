@@ -1,0 +1,45 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeStrSETFromHashWithFilter.html'>前のページ</a><br>MakeStrSETFromHashWithFilter </td>
+			<td align='right'> <a href='SetFieldToArray.html'>次のページ</a><br>SetFieldToArray </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>GetRows</font> --- 行数を取得する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)q:SQLコマンド</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(integer)strtmp:行数</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;GetRows&nbsp;{
+	local($q)&nbsp;=&nbsp;@_;
+	local($strtmp);
+ 
+	&ExecSQL($q);
+	$strtmp&nbsp;=&nbsp;$sth-&gt;rows;
+	$rc&nbsp;=&nbsp;$sth-&gt;finish;
+ 
+	return&nbsp;$strtmp;
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>#$q&nbsp;=&nbsp;"SELECT&nbsp;*&nbsp;FROM&nbsp;$INI{'GROBAL-SsDBName'}&nbsp;WHERE&nbsp;MemberStoreID&nbsp;=&nbsp;\'$form{'id'}\'&nbsp;AND&nbsp;MemberStorePS&nbsp;=&nbsp;\'$form{'ps'}\'";<br>$q&nbsp;=&nbsp;"SELECT&nbsp;*&nbsp;FROM&nbsp;$INI{'GROBAL-SsDBName'}&nbsp;WHERE&nbsp;MemberStoreID&nbsp;=&nbsp;\'$form{'id'}\'";<br> <br><br>#認証処理<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>if(&GetRows($q)&nbsp;eq&nbsp;1)&nbsp;{</font><br>$Match_Flag&nbsp;=&nbsp;"1";<br>#クッキー保存<br>$tmp01&nbsp;=&nbsp;&GetDateString;<br>$tmp01&nbsp;=~&nbsp;s/://g;<br>$COOKIE{'KANRI-id'}&nbsp;=&nbsp;"k"&nbsp;.&nbsp;$tmp01;<br> <br><br>(kanri.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeStrSETFromHashWithFilter.html'>前のページ</a><br>MakeStrSETFromHashWithFilter </td>
+			<td align='right'> <a href='SetFieldToArray.html'>次のページ</a><br>SetFieldToArray </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

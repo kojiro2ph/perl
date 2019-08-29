@@ -1,0 +1,58 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='PutCookie.html'>前のページ</a><br>PutCookie </td>
+			<td align='right'> <a href='GetSpecFileInfo.html'>次のページ</a><br>GetSpecFileInfo </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>GetSpecDateString</font> --- 指定の秒数から日付を取得する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(time)time:time <br> (string)key:取得する情報の名称</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string):keyの値</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;GetSpecDateString&nbsp;{
+	local($time,$key)&nbsp;=&nbsp;@_;
+	local($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst,$datestr);
+ 
+	($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst)&nbsp;=&nbsp;localtime($time);
+	$mon++;
+ 
+	if($sec&nbsp;&lt;&nbsp;10)&nbsp;{$sec&nbsp;=&nbsp;"0$sec";};
+	if($min&nbsp;&lt;&nbsp;10)&nbsp;{$min&nbsp;=&nbsp;"0$min";};
+	if($hour&nbsp;&lt;&nbsp;10)&nbsp;{$hour&nbsp;=&nbsp;"0$hour";};
+	if($mday&nbsp;&lt;&nbsp;10)&nbsp;{$mday&nbsp;=&nbsp;"0$mday";};
+	if($mon&nbsp;&lt;&nbsp;10)&nbsp;{$mon&nbsp;=&nbsp;"0$mon";};
+	if($year&nbsp;&lt;&nbsp;99)&nbsp;{$year&nbsp;=&nbsp;$year&nbsp;+&nbsp;2000}
+	else&nbsp;{$year&nbsp;=&nbsp;$year&nbsp;+&nbsp;1900;};
+ 
+	$datestr&nbsp;=&nbsp;"$year:$mon:$mday:$hour:$min:$sec";
+ 
+	if($key&nbsp;eq&nbsp;"")&nbsp;{
+		return&nbsp;$datestr;
+	}&nbsp;else&nbsp;{
+		return&nbsp;${$key};
+	}
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>#注文番号取得<br>$form{'OrderID'}&nbsp;=&nbsp;$OrderID&nbsp;=&nbsp;&GetNewOrderNumber;<br> <br>#注文時間取得<br> <br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>$OrderTimexJP&nbsp;=&nbsp;&ConvDateString(&GetSpecDateString(&GetCurTime),2,":");</font><br>$form{'OrderTime'}&nbsp;=&nbsp;$OrderTime&nbsp;=&nbsp;&GetDateString;<br> <br>#カート情報を購入商品情報配列に格納<br>@oGoodsInfoArray&nbsp;=&nbsp;split(/$INI{'GROBAL-StrODJ'}/,$form{'cinfo'});<br> <br><br> <br>(order.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='PutCookie.html'>前のページ</a><br>PutCookie </td>
+			<td align='right'> <a href='GetSpecFileInfo.html'>次のページ</a><br>GetSpecFileInfo </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

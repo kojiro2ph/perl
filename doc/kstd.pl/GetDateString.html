@@ -1,0 +1,52 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='RecordFileData.html'>前のページ</a><br>RecordFileData </td>
+			<td align='right'> <a href='PH.html'>次のページ</a><br>PH </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>GetDateString</font> --- サーバー時刻を取得する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>なし</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)datestr:年月日時分秒文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;GetDateString&nbsp;{
+	local($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst,$datestr);
+	($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst)&nbsp;=&nbsp;localtime(time);
+	$mon++;
+		
+	if($sec&nbsp;&lt;&nbsp;10)&nbsp;{$sec&nbsp;=&nbsp;"0$sec";};
+	if($min&nbsp;&lt;&nbsp;10)&nbsp;{$min&nbsp;=&nbsp;"0$min";};
+	if($hour&nbsp;&lt;&nbsp;10)&nbsp;{$hour&nbsp;=&nbsp;"0$hour";};
+	if($mday&nbsp;&lt;&nbsp;10)&nbsp;{$mday&nbsp;=&nbsp;"0$mday";};
+	if($mon&nbsp;&lt;&nbsp;10)&nbsp;{$mon&nbsp;=&nbsp;"0$mon";};
+	if($year&nbsp;&lt;&nbsp;99)&nbsp;{$year&nbsp;=&nbsp;$year&nbsp;+&nbsp;2000}
+	else&nbsp;{$year&nbsp;=&nbsp;$year&nbsp;+&nbsp;1900;};
+ 
+	$datestr&nbsp;=&nbsp;"$year:$mon:$mday:$hour:$min:$sec";
+ 
+	return&nbsp;$datestr;
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br>sub&nbsp;Save&nbsp;{<br>local($InLine,$datestring);<br> <br><br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>$datestring&nbsp;=&nbsp;&GetDateStringFromComServer;</font><br> <br><br>$InLine&nbsp;=&nbsp;join("&nbsp;---&nbsp;",<br>$form{'select'},<br>$form{'ruby_com'},<br> <br><br>(bosyu.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='RecordFileData.html'>前のページ</a><br>RecordFileData </td>
+			<td align='right'> <a href='PH.html'>次のページ</a><br>PH </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

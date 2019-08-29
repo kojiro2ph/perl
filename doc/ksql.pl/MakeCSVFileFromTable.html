@@ -1,0 +1,130 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeTableFromCSVFile.html'>前のページ</a><br>MakeTableFromCSVFile </td>
+			<td align='right'> <a href='GetSpecFieldBySpecKeyFromSpecTable.html'>次のページ</a><br>GetSpecFieldBySpecKeyFromSpecTable </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>MakeCSVFileFromTable</font> --- 指定テーブルから指定キーの指定項目を取得する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)fname:ファイル名 <br>(string)tname:テーブル名</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)strline:CSVデータ文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;MakeCSVFileFromTable&nbsp;{
+	local($fname,$tname)&nbsp;=&nbsp;@_;
+	local($i,$numRows,$numFields,$fldtype,$fldbyte,$fldlabel,$strline,@field,@fldname,@fldtype,@tmparray);
+ 
+	#フィールド名をヘッドに挿入
+	&ExecSQL("DESC&nbsp;$tname");&nbsp;#ＳＱＬ文実行
+	@fldname&nbsp;=&nbsp;&MakeArrayBySpecCat("Field");
+ 
+	&ExecSQL("DESC&nbsp;$tname");
+	@fldtype&nbsp;=&nbsp;&MakeArrayBySpecCat("Type");
+ 
+	for($i&nbsp;=&nbsp;0;&nbsp;$i&nbsp;&lt;=&nbsp;$#fldname;&nbsp;$i++)&nbsp;{
+ 
+		if($fldname[$i]&nbsp;eq&nbsp;"")&nbsp;{
+			$fldname[$i]&nbsp;=&nbsp;"\&nbsp;";
+		}
+ 
+		$fldtype&nbsp;=&nbsp;&GetFieldType(1,$tname,$fldname[$i]);
+ 
+		#&nbsp;VARCHAR&nbsp;の場合
+		if(($fldtype&nbsp;=~&nbsp;/varchar/))&nbsp;{
+			$fldtype&nbsp;=~&nbsp;/varchar\((.*)\)/;
+			$fldbyte&nbsp;=&nbsp;$1;
+			$fldlabel&nbsp;=&nbsp;"$fldname[$i]_vc:$fldbyte";
+		}
+		#CAHR&nbsp;の場合
+		if(($fldtype&nbsp;=~&nbsp;/char/))&nbsp;{
+			$fldtype&nbsp;=~&nbsp;/char\((.*)\)/;
+			$fldbyte&nbsp;=&nbsp;$1;
+			$fldlabel&nbsp;=&nbsp;"$fldname[$i]_vc:$fldbyte";
+		}
+		#&nbsp;TEXTの場合
+		elsif($fldtype&nbsp;=~&nbsp;/text/)&nbsp;{
+			$fldlabel&nbsp;=&nbsp;"$fldname[$i]_txt";
+		}
+ 
+		push(@tmparray,$fldlabel);
+	}
+ 
+	$strline&nbsp;.=&nbsp;(join("\t",@tmparray)&nbsp;.&nbsp;"\n")&nbsp;x&nbsp;2;
+ 
+
+	@tmparray&nbsp;=&nbsp;();
+ 
+	&ExecSQL("SELECT&nbsp;*&nbsp;from&nbsp;$tname");&nbsp;#ＳＱＬ文実行
+	$numRows&nbsp;	=&nbsp;$sth-&gt;rows;			#行数
+	$numFields&nbsp;	=&nbsp;$sth-&gt;{'NUM_OF_FIELDS'};	#項目数
+ 
+	#項目に対するバインドをする
+	for($i&nbsp;=&nbsp;1;&nbsp;$i&nbsp;&lt;=&nbsp;$numFields;&nbsp;$i++)&nbsp;{
+		$sth-&gt;bind_col($i,&nbsp;\$field[$i],&nbsp;undef);
+	}
+ 
+
+	#メインテーブルを作成する
+	while&nbsp;(&nbsp;$sth-&gt;fetch&nbsp;){
+ 
+		for($i&nbsp;=&nbsp;1;&nbsp;$i&nbsp;&lt;=&nbsp;$#field;&nbsp;$i++)&nbsp;{
+			#if($field[$i]&nbsp;eq&nbsp;"")&nbsp;{
+			#	$field[$i]&nbsp;=&nbsp;"\&nbsp;";
+			#}
+			#$field[$i]&nbsp;=&nbsp;&ConvHTMLTag($field[$i]);
+			$field[$i]&nbsp;=~&nbsp;s/\r//g;
+			$field[$i]&nbsp;=~&nbsp;s/\n/
+/g;
+			$field[$i]&nbsp;=~&nbsp;s/\t/_T_/g;
+			push(@tmparray,$field[$i]);
+		}
+		$strline&nbsp;=&nbsp;$strline&nbsp;.&nbsp;join("\t",@tmparray);
+		$strline&nbsp;=&nbsp;$strline&nbsp;.&nbsp;"\n";
+		@tmparray&nbsp;=&nbsp;();
+ 
+		#print&nbsp;"|";
+		$len&nbsp;=&nbsp;length($strline);
+ 
+		if($br++&nbsp;%&nbsp;100&nbsp;eq&nbsp;0)&nbsp;{
+			#print&nbsp;"&nbsp;$len&lt;BR&gt;\n";
+		}
+ 
+
+		if($len&nbsp;&gt;&nbsp;30000)&nbsp;{
+			&RecordFileData($fname,4,&JS($strline));
+			$strline&nbsp;=&nbsp;"";
+		}
+ 
+	}&nbsp;
+ 
+
+	#ファイル書き込み
+	&RecordFileData($fname,4,&JS($strline));
+ 
+	return&nbsp;$strline;
+ 
+
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br>print&nbsp;&PH;<br> <br>#バックアップループ<br>for($i&nbsp;=&nbsp;0;&nbsp;$i&nbsp;&lt;=&nbsp;$#TableArray;&nbsp;$i++)&nbsp;{<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>$dum&nbsp;=&nbsp;&MakeCSVFileFromTable("$INI{'GROBAL-DBFilePath'}$new_folder/$TableArray[$i].txt",$TableArray[$i]);</font><br>print&nbsp;"$TableArray[$i]&nbsp;Successful&lt;BR&gt;";<br>}<br> <br>print&nbsp;"バッグアップ完了&lt;BR&gt;";<br>exit(0);<br> <br><br>(backup.plから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeTableFromCSVFile.html'>前のページ</a><br>MakeTableFromCSVFile </td>
+			<td align='right'> <a href='GetSpecFieldBySpecKeyFromSpecTable.html'>次のページ</a><br>GetSpecFieldBySpecKeyFromSpecTable </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

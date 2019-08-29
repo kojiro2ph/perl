@@ -1,0 +1,57 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='InsertFromHash.html'>前のページ</a><br>InsertFromHash </td>
+			<td align='right'> <a href='ConnectSQL.html'>次のページ</a><br>ConnectSQL </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>Init_SQL</font> --- ＳＱＬ環境を初期化する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>なし</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>なし</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;Init_SQL&nbsp;{
+ 
+	if($ENV{'HTTP_HOST'}&nbsp;eq&nbsp;"www.kojirohamada.com")&nbsp;{
+		$mysql_dbn	=&nbsp;"";
+		$mysql_host	=&nbsp;"";
+		$mysql_user	=&nbsp;"";
+		$mysql_pass	=&nbsp;"";
+	}
+	elsif($ENV{'HTTP_HOST'}&nbsp;=~&nbsp;/abc/)&nbsp;{
+		$mysql_dbn	=&nbsp;"";
+		$mysql_host	=&nbsp;"";
+		$mysql_user	=&nbsp;"";
+		$mysql_pass	=&nbsp;"";
+	}
+	else&nbsp;{
+		$mysql_dbn	=&nbsp;"";
+		$mysql_host	=&nbsp;"";
+		$mysql_user	=&nbsp;"";
+		$mysql_pass	=&nbsp;"";
+	}
+ 
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>&Init_Tag;<br> <br>%INI&nbsp;=&nbsp;{};<br>%INI&nbsp;=&nbsp;&InitINIData(1,$MainINIFile);<br> <br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>&pInit_SQL;</font><br> <br><br>#&Init_Admin;<br> <br>$BackToAdmin	=&nbsp;&ConvVal($INI{'GROBAL-BackToAdmin'});<br> <br><br>(admin.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='InsertFromHash.html'>前のページ</a><br>InsertFromHash </td>
+			<td align='right'> <a href='ConnectSQL.html'>次のページ</a><br>ConnectSQL </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

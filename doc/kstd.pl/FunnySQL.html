@@ -1,0 +1,78 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='GetArrayFromINIHash.html'>前のページ</a><br>GetArrayFromINIHash </td>
+			<td align='right'> <a href='ConvPrice.html'>次のページ</a><br>ConvPrice </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>FunnySQL</font> --- 自作ＳＱＬ
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(integer)mode:オプション <br> (string)fname:ファイル名 (パスを含む) <br> (string)lsp:行データの区切り <br> (string)dsp:項目データの区切り <br> (string)id:ユニークのID <br> (string)idx:取得する項目の位置</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string&nbsp;or&nbsp;string&nbsp;array)</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;FunnySQL&nbsp;{
+	local($mode,$fname,$lsp,$dsp,$id,$idx)&nbsp;=&nbsp;@_;
+	local($i,$strtmp,$fdata,@flines,@dlines,@strarray);
+ 
+
+	if($mode&nbsp;eq&nbsp;"1")&nbsp;{
+		if($fname&nbsp;eq&nbsp;"")&nbsp;{
+			$fdata&nbsp;=&nbsp;$CurFileData;
+		}&nbsp;else&nbsp;{
+			$fdata&nbsp;=&nbsp;&ReadFileData($fname,1);
+		}
+ 
+		@flines&nbsp;=&nbsp;split(/$lsp/,$fdata);
+ 
+		for($i&nbsp;=&nbsp;0;&nbsp;$i&nbsp;&lt;=&nbsp;$#flines;&nbsp;$i++)&nbsp;{
+			@dlines&nbsp;=&nbsp;split(/$dsp/,$flines[$i]);
+			if($dlines[0]&nbsp;eq&nbsp;$id)&nbsp;{
+				$strtmp&nbsp;=&nbsp;$dlines[$idx];
+				last;
+			}
+		}
+ 
+		return&nbsp;$strtmp;
+	}
+	elsif($mode&nbsp;eq&nbsp;"2")&nbsp;{
+		if($fname&nbsp;eq&nbsp;"")&nbsp;{
+			$fdata&nbsp;=&nbsp;$CurFileData;
+		}&nbsp;else&nbsp;{
+			$fdata&nbsp;=&nbsp;&ReadFileData($fname,1);
+		}
+ 
+		@flines&nbsp;=&nbsp;split(/$lsp/,$fdata);
+ 
+		for($i&nbsp;=&nbsp;0;&nbsp;$i&nbsp;&lt;=&nbsp;$#flines;&nbsp;$i++)&nbsp;{
+			@dlines&nbsp;=&nbsp;split(/$dsp/,$flines[$i]);
+			push(@strarray,$dlines[$idx]);
+		}
+ 
+		return&nbsp;@strarray;
+	}
+ 
+
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>#メニューエリア&nbsp;---<br>if($form{'step'}&nbsp;eq&nbsp;"")&nbsp;{<br>$Umax&nbsp;=&nbsp;&GetRows("SELECT&nbsp;*&nbsp;FROM&nbsp;$INI{'GROBAL-MiDBName'}");<br>$GmailLogTable&nbsp;=&nbsp;&GetGmailLog(1);<br> <br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>@tkey&nbsp;=&nbsp;&FunnySQL(2,"$INI{'GROBAL-AdminFilePath'}gmailtargetselection","\n",",","",0);</font><br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>@tval&nbsp;=&nbsp;&FunnySQL(2,"$INI{'GROBAL-AdminFilePath'}gmailtargetselection","\n",",","",1);</font><br> <br>$GmailTargetSelection&nbsp;=&nbsp;&MakeSelectionByStrArray(2,"t",*tkey,*tval);<br> <br>$K&nbsp;=&nbsp;&ConvVal(&ReadFileData("html/gmailform1.html",3));<br> <br><br>(gmail.plから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='GetArrayFromINIHash.html'>前のページ</a><br>GetArrayFromINIHash </td>
+			<td align='right'> <a href='ConvPrice.html'>次のページ</a><br>ConvPrice </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

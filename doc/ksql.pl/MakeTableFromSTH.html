@@ -1,0 +1,86 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='DisconnectSQL.html'>前のページ</a><br>DisconnectSQL </td>
+			<td align='right'> <a href='ExecSQL.html'>次のページ</a><br>ExecSQL </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>MakeTableFromSTH</font> --- sthをTABLE化にする
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)tname:テーブル名</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)strline:HTML文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;MakeTableFromSTH&nbsp;{
+	local($tname)&nbsp;=&nbsp;@_;
+	local($i,$strline,$numRows,$numFields,@field);
+ 
+	#フィールド名をヘッドに挿入
+	&ExecSQL("DESC&nbsp;$tname");&nbsp;#ＳＱＬ文実行
+	@fldname&nbsp;=&nbsp;&MakeArrayBySpecCat("Field");
+ 
+	for($i&nbsp;=&nbsp;0;&nbsp;$i&nbsp;&lt;=&nbsp;$#fldname;&nbsp;$i++)&nbsp;{
+ 
+		if($fldname[$i]&nbsp;eq&nbsp;"")&nbsp;{
+			$fldname[$i]&nbsp;=&nbsp;"\&nbsp;";
+		}
+		$strline&nbsp;.=&nbsp;"&lt;td&gt;&lt;b&gt;$fldname[$i]&lt;/b&gt;&lt;/td&gt;\n";
+	}
+ 
+	$strline&nbsp;=&nbsp;"&lt;tr&nbsp;bgcolor=\"pink\"&gt;\n$strline&lt;/tr&gt;\n";
+ 
+	&ExecSQL("SELECT&nbsp;*&nbsp;from&nbsp;$tname");&nbsp;#ＳＱＬ文実行
+	$numRows&nbsp;	=&nbsp;$sth-&gt;rows;			#行数
+	$numFields&nbsp;	=&nbsp;$sth-&gt;{'NUM_OF_FIELDS'};	#項目数
+ 
+	#項目に対するバインドをする
+	for($i&nbsp;=&nbsp;1;&nbsp;$i&nbsp;&lt;=&nbsp;$numFields;&nbsp;$i++)&nbsp;{
+		$sth-&gt;bind_col($i,&nbsp;\$field[$i],&nbsp;undef);
+	}
+ 
+
+	#メインテーブルを作成する
+	while&nbsp;(&nbsp;$sth-&gt;fetch&nbsp;){
+		$strline&nbsp;.=&nbsp;"&lt;tr&gt;\n";
+		for($i&nbsp;=&nbsp;1;&nbsp;$i&nbsp;&lt;=&nbsp;$#field;&nbsp;$i++)&nbsp;{
+			if($field[$i]&nbsp;eq&nbsp;"")&nbsp;{
+				$field[$i]&nbsp;=&nbsp;"\&nbsp;";
+			}
+			$field[$i]&nbsp;=&nbsp;&ConvHTMLTag($field[$i]);
+			$strline&nbsp;.=&nbsp;"&lt;td&nbsp;nowrap&gt;$field[$i]&lt;/td&gt;\n";
+		}
+		$strline&nbsp;.=&nbsp;"&lt;/tr&gt;\n";
+	}&nbsp;
+ 
+
+	#テーブル整理
+	$strline&nbsp;=&nbsp;join("","
+		&lt;table&nbsp;style=\"font-size:10pt\"&nbsp;border=\"1\"&gt;
+		$strline
+		&lt;/table&gt;
+		");
+ 
+	return&nbsp;$strline;
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br> <br><br> <br>#テーブル作成<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>$StrTable&nbsp;=&nbsp;&MakeTableFromSTH($form{'tname'});</font><br> <br>$K&nbsp;=&nbsp;"&lt;br&gt;&nbsp;$StrTable";<br> <br>}<br> <br><br> <br>(viewtable.plから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='DisconnectSQL.html'>前のページ</a><br>DisconnectSQL </td>
+			<td align='right'> <a href='ExecSQL.html'>次のページ</a><br>ExecSQL </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

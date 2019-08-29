@@ -1,0 +1,102 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='Sprint.html'>前のページ</a><br>Sprint </td>
+			<td align='right'> <a href='CountChar.html'>次のページ</a><br>CountChar </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>ReadCSVFile</font> --- ＣＳＶファイル読み込み
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)mode:オプション1:連想配列に格納する <br> (string)fname:ファイル名</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(hash)座標連想配列&nbsp;(0_1,0_2...n_m)</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;ReadCSVFile&nbsp;{
+	local($mode,$fname)&nbsp;=&nbsp;@_;
+	local($i,$j,$k,$strCSVKey,$InValFlag,$strline,@strarray,@chararray);
+ 
+	if($mode&nbsp;eq&nbsp;1)&nbsp;{
+ 
+		$InValFlag&nbsp;=&nbsp;0;
+ 
+		$strline&nbsp;=&nbsp;&ReadFileData($fname,1);
+		#ＥＵＣに変換する
+		&jcode'convert(*strline,'euc');
+ 
+		@strarray&nbsp;=&nbsp;split(/\n/,$strline);
+	
+		for($i&nbsp;=&nbsp;0;$i&nbsp;&lt;=&nbsp;$#strarray;&nbsp;$i++)&nbsp;{
+			$strarray[$i]&nbsp;=~&nbsp;s/;.*//g;
+			$strarray[$i]&nbsp;=~&nbsp;s/""/_DBLAP_/g;
+			@chararray&nbsp;=&nbsp;split("",$strarray[$i]);
+ 
+			for($j&nbsp;=&nbsp;0;&nbsp;$j&nbsp;&lt;=&nbsp;$#chararray;&nbsp;$j++)&nbsp;{
+				if($chararray[$j]&nbsp;eq&nbsp;"\"")&nbsp;{
+					if($InValFlag&nbsp;eq&nbsp;0)&nbsp;{
+						$InValFlag&nbsp;=&nbsp;1;
+					}&nbsp;elsif($InValFlag&nbsp;eq&nbsp;1)&nbsp;{
+						$InValFlag&nbsp;=&nbsp;0;
+					}
+					next;
+				}&nbsp;else&nbsp;{
+					if($chararray[$j]&nbsp;eq&nbsp;",")&nbsp;{
+						#区切りカンマの場合
+						if($InValFlag&nbsp;eq&nbsp;0)&nbsp;{
+						#値カンマの場合
+						}&nbsp;elsif($InValFlag&nbsp;eq&nbsp;1)&nbsp;{
+							$chararray[$j]&nbsp;=~&nbsp;s/$chararray[$j]/_VALKAM_/g;
+						}
+					}
+				}
+			}
+ 
+			$strarray[$i]&nbsp;=&nbsp;join("",@chararray);
+			$strarray[$i]&nbsp;=~&nbsp;s/"//g;
+ 
+			#デバグ用
+			if($strarray[$i]&nbsp;ne&nbsp;"")&nbsp;{
+				#print&nbsp;"$f2&lt;b&gt;$strarray[$i]&lt;/b&gt;$fc&lt;br&gt;";
+			}
+ 
+
+			@valarray&nbsp;=&nbsp;split(/,/,$strarray[$i]);
+ 
+			for($k&nbsp;=&nbsp;0;$k&nbsp;&lt;=&nbsp;$#valarray;&nbsp;$k++)&nbsp;{
+				$strCSVKey&nbsp;=&nbsp;join("",$i,"_",$k);
+				$valarray[$k]&nbsp;=~&nbsp;s/_DBLAP_/"/g;
+				$valarray[$k]&nbsp;=~&nbsp;s/_VALKAM_/,/g;
+ 
+				#print&nbsp;"CSVKey&nbsp;:&nbsp;$strCSVKey&nbsp;CSVVal&nbsp;:&nbsp;$valarray[$k]&lt;br&gt;";
+ 
+				$CSVData{$strCSVKey}&nbsp;=&nbsp;$valarray[$k];
+			}
+ 
+			$strCSVKey&nbsp;=&nbsp;join("","MAX","_",$i);
+			$CSVData{$strCSVKey}&nbsp;=&nbsp;$#valarray;
+			
+		}
+ 
+		$strCSVKey&nbsp;=&nbsp;"MAXRECORD";
+		$CSVData{$strCSVKey}&nbsp;=&nbsp;$#strarray;
+ 
+		return&nbsp;%CSVData;
+	}
+}
+</font></pre></td></tr></table>
+
+			サンプルなし
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='Sprint.html'>前のページ</a><br>Sprint </td>
+			<td align='right'> <a href='CountChar.html'>次のページ</a><br>CountChar </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

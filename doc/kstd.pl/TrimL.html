@@ -1,0 +1,42 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='CountChar.html'>前のページ</a><br>CountChar </td>
+			<td align='right'> <a href='SandWitch.html'>次のページ</a><br>SandWitch </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>TrimL</font> --- 頭の空白を削除する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)strtmp:文字列</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)削除した文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;TrimL&nbsp;{
+	local($strtmp)&nbsp;=&nbsp;@_;
+ 
+	$strtmp&nbsp;=~&nbsp;s/^\s+//g;
+ 
+	return&nbsp;$strtmp;
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>$StrAllMail&nbsp;=&nbsp;&ReadFileData($fname,1);<br>@StrArray&nbsp;=&nbsp;split(/\n/,$StrAllMail);<br> <br>for($i&nbsp;=&nbsp;0;&nbsp;$i&nbsp;&lt;=&nbsp;$#StrArray;&nbsp;$i++)&nbsp;{<br>$Sbjstr&nbsp;=&nbsp;&GrabSbjFromMailStr($StrArray[$i]);<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>if(&TrimL($Sbjstr)&nbsp;eq&nbsp;"")&nbsp;{</font><br>$Sbjstr&nbsp;=&nbsp;"No&nbsp;Title";<br>}<br>#$Sbjstr&nbsp;=~&nbsp;s/&nbsp;/\&nbsp;/g;<br> <br>$strarray[$i]&nbsp;=&nbsp;$Sbjstr;<br> <br><br>(kmail.plから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='CountChar.html'>前のページ</a><br>CountChar </td>
+			<td align='right'> <a href='SandWitch.html'>次のページ</a><br>SandWitch </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

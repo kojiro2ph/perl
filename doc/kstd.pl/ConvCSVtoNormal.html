@@ -1,0 +1,85 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='StopWatchVer1.html'>前のページ</a><br>StopWatchVer1 </td>
+			<td align='right'> <a href='Impact.html'>次のページ</a><br>Impact </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>ConvCSVtoNormal</font> --- ＣＳＶ文字列を一般文字列にして配列にして返す
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)strtmp:CSV一行</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string&nbsp;array)strarray:データ配列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;ConvCSVtoNormal&nbsp;{
+	local($strtmp)&nbsp;=&nbsp;@_;
+	local($k,$j,$InValFlag,@strarray,@chararray,@valarray);
+ 
+	$InValFlag&nbsp;=&nbsp;0;
+ 
+	$strtmp&nbsp;=~&nbsp;s/;.*//g;
+	$strtmp&nbsp;=~&nbsp;s/""/_DBLAP_/g;
+	@chararray&nbsp;=&nbsp;split("",$strtmp);
+ 
+
+ 
+	for($j&nbsp;=&nbsp;0;&nbsp;$j&nbsp;&lt;=&nbsp;$#chararray;&nbsp;$j++)&nbsp;{
+		if($chararray[$j]&nbsp;eq&nbsp;"\"")&nbsp;{
+			if($InValFlag&nbsp;eq&nbsp;0)&nbsp;{
+				$InValFlag&nbsp;=&nbsp;1;
+			}&nbsp;elsif($InValFlag&nbsp;eq&nbsp;1)&nbsp;{
+				$InValFlag&nbsp;=&nbsp;0;
+			}
+			next;
+		}&nbsp;else&nbsp;{
+			if($chararray[$j]&nbsp;eq&nbsp;",")&nbsp;{
+				#区切りカンマの場合
+				if($InValFlag&nbsp;eq&nbsp;0)&nbsp;{
+				#値カンマの場合
+				}&nbsp;elsif($InValFlag&nbsp;eq&nbsp;1)&nbsp;{
+					$chararray[$j]&nbsp;=~&nbsp;s/$chararray[$j]/_VALKAM_/g;
+				}
+			}
+		}
+	}
+	$strtmp&nbsp;=&nbsp;join("",@chararray);
+	$strtmp&nbsp;=~&nbsp;s/"//g;
+ 
+
+	#print&nbsp;"&lt;br&gt;&nbsp;ato&nbsp;$strtmp&lt;br&gt;";
+ 
+	@valarray&nbsp;=&nbsp;split(/,/,$strtmp);
+	for($k&nbsp;=&nbsp;0;$k&nbsp;&lt;=&nbsp;$#valarray;&nbsp;$k++)&nbsp;{
+		$valarray[$k]&nbsp;=~&nbsp;s/_DBLAP_/"/g;
+		$valarray[$k]&nbsp;=~&nbsp;s/_VALKAM_/,/g;
+		$strarray[$k]&nbsp;=&nbsp;$valarray[$k];
+		#print&nbsp;$strarray[$k]&nbsp;.&nbsp;":";
+	}
+ 
+
+	#print&nbsp;"\n&lt;br&gt;test&nbsp;"&nbsp;.&nbsp;@strarray;
+ 
+	return&nbsp;@strarray;
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br>#--------------------------------------------------------------------------<br>#&nbsp;ＣＳＶ文字列を一般文字列にして配列にして返す<br>#--------------------------------------------------------------------------<br> <br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>sub&nbsp;ConvCSVtoNormal&nbsp;{</font><br>local($strtmp)&nbsp;=&nbsp;@_;<br>local($k,$j,$InValFlag,@strarray,@chararray,@valarray);<br> <br>$InValFlag&nbsp;=&nbsp;0;<br> <br><br> <br>(kmail.plから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='StopWatchVer1.html'>前のページ</a><br>StopWatchVer1 </td>
+			<td align='right'> <a href='Impact.html'>次のページ</a><br>Impact </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

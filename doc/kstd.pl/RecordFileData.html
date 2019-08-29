@@ -1,0 +1,67 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ReadFileData.html'>前のページ</a><br>ReadFileData </td>
+			<td align='right'> <a href='GetDateString.html'>次のページ</a><br>GetDateString </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>RecordFileData</font> --- ファイル書込処理
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)fname:ファイル名（パス抜き） <br> (string)way:オプション1:各文字列配列に改行を付加して書き込む 2:各文字列配列をそのまま書き込む 3:文字列をそのまま書き込む  <br> (string)strline:文字列変数 <br> (string array)strArray:文字列配列 </td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>なし</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;RecordFileData&nbsp;{
+	local($fname,$way,$strline,@strArray)&nbsp;=&nbsp;@_;
+	local($strtmp);
+ 
+
+	
+	if($way&nbsp;eq&nbsp;1)&nbsp;{
+		open(DB,"&gt;$fname");
+		foreach&nbsp;$strtmp&nbsp;(@strArray)&nbsp;{
+			if($strtmp&nbsp;!=~&nbsp;/\n$/)&nbsp;{
+				$strtmp&nbsp;=&nbsp;join("",$strtmp,"\n");
+			}
+			print&nbsp;DB&nbsp;"$strtmp";	
+		}
+		close(DB);
+	}&nbsp;elsif($way&nbsp;eq&nbsp;2)&nbsp;{
+		open(DB,"&gt;$fname");
+		$strtmp&nbsp;=&nbsp;join("",@strArray);
+		print&nbsp;DB&nbsp;"$strtmp";	
+		close(DB);
+	}&nbsp;elsif($way&nbsp;eq&nbsp;3)&nbsp;{
+		open(DB,"&gt;$fname");
+		print&nbsp;DB&nbsp;"$strline";	
+		close(DB);
+	}&nbsp;elsif($way&nbsp;eq&nbsp;4)&nbsp;{
+		open(DB,"&gt;&gt;$fname");
+		print&nbsp;DB&nbsp;"$strline";	
+		close(DB);
+	}
+ 
+	return;
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br>#書き込み処理&nbsp;---------------------------&nbsp;ここから<br>$form{'mycomment'}&nbsp;=~&nbsp;s/\r//g;<br>$form{'mycomment'}&nbsp;=~&nbsp;s/\n/<br>/g;<br>$InLine&nbsp;=&nbsp;join("&nbsp;---&nbsp;",$form{'myname'},$form{'myemotion'},$form{'mycomment'});<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>&RecordFileData("dtf/bbs/$form{'gid'}",4,"$InLine\n");</font><br> <br><br>$gid&nbsp;=&nbsp;$form{'gid'};<br> <br><br> <br><br>(bbs.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ReadFileData.html'>前のページ</a><br>ReadFileData </td>
+			<td align='right'> <a href='GetDateString.html'>次のページ</a><br>GetDateString </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

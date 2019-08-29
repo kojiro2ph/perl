@@ -1,0 +1,58 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeSelectionBySectionArray.html'>前のページ</a><br>MakeSelectionBySectionArray </td>
+			<td align='right'> <a href='ConvCSVString.html'>次のページ</a><br>ConvCSVString </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>MakeCSVLineFromHash</font> --- CSV連想配列からCSV行を作成する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(integer)mode:オプション <br> (string)strJ:含まれる文字 (標準:1_ etc...) <br> (hash)hash:連想配列</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>CSVデータ文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;MakeCSVLineFromHash&nbsp;{
+	local($mode,&nbsp;$strJ,&nbsp;%hash)&nbsp;=&nbsp;@_;
+	local($i,$strtmp,$strHname,$key,$val,$max_i,@strarray);
+ 
+	$i&nbsp;=&nbsp;0;
+	$max_i&nbsp;=&nbsp;-1;
+ 
+	while(($key,&nbsp;$val)&nbsp;=&nbsp;each&nbsp;%hash)&nbsp;{
+		if($key&nbsp;=~&nbsp;/$strJ/)&nbsp;{
+			$max_i++;
+		}
+	}
+ 
+
+	for($i&nbsp;=&nbsp;0;&nbsp;$i&nbsp;&lt;=&nbsp;$max_i;&nbsp;$i++)&nbsp;{
+		$strHname&nbsp;=&nbsp;join("",$strJ,$i);
+		$hash{$strHname}&nbsp;=&nbsp;&ConvCSVString($hash{$strHname});
+		print&nbsp;"$strHname&nbsp;=&nbsp;$hash{$strHname}&lt;br&gt;";
+		push(@strarray,$hash{$strHname});
+	}
+ 
+
+	$strtmp&nbsp;=&nbsp;join(",",@strarray);
+ 
+	return&nbsp;$strtmp;
+ 
+}
+</font></pre></td></tr></table>
+
+			サンプルなし
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeSelectionBySectionArray.html'>前のページ</a><br>MakeSelectionBySectionArray </td>
+			<td align='right'> <a href='ConvCSVString.html'>次のページ</a><br>ConvCSVString </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

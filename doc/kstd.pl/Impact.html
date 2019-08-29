@@ -1,0 +1,40 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ConvCSVtoNormal.html'>前のページ</a><br>ConvCSVtoNormal </td>
+			<td align='right'>  </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>Impact</font> --- 強調文字列作成
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)strtmp:強調する文字列</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;Impact&nbsp;{
+	local($strtmp)&nbsp;=&nbsp;@_;
+ 
+	return&nbsp;"$fred&lt;b&gt;&nbsp;$strtmp&nbsp;&lt;/b&gt;$fc";
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br>@TableArray&nbsp;=&nbsp;$dbh-&gt;func(&nbsp;'_ListTables'&nbsp;);<br>foreach(@TableArray)&nbsp;{<br>if($form{'tname'}&nbsp;=~&nbsp;/^$_$/i)&nbsp;{<br>&ExecSQL("DROP&nbsp;TABLE&nbsp;$form{'tname'}");<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>$kmsg&nbsp;=&nbsp;&Impact("$form{'tname'}を落としました。");</font><br>}<br>}<br> <br><br>if($kmsg&nbsp;eq&nbsp;"")&nbsp;{<br> <br><br>(db.plから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ConvCSVtoNormal.html'>前のページ</a><br>ConvCSVtoNormal </td>
+			<td align='right'>  </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

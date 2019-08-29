@@ -1,0 +1,51 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='SetFieldToArray.html'>前のページ</a><br>SetFieldToArray </td>
+			<td align='right'> <a href='GetValueFromSTH.html'>次のページ</a><br>GetValueFromSTH </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>IsOverString</font> --- バイト数を超えてないか確認&nbsp;(formを参照)
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)tname:テーブル名</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(boolean)1=超えてる,0=超えてない</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;IsOverString&nbsp;{
+	local($tname)&nbsp;=&nbsp;@_;
+ 
+	#フィールド名をヘッドに挿入
+	&ExecSQL("DESC&nbsp;$tname");&nbsp;#ＳＱＬ文実行
+	@fldname&nbsp;=&nbsp;&MakeArrayBySpecCat("Field");
+		
+	for($i&nbsp;=&nbsp;0;&nbsp;$i&nbsp;&lt;=&nbsp;$#fldname;&nbsp;$i++)&nbsp;{
+		if(length($form{"$fldname[$i]"})&nbsp;&gt;&nbsp;&GetByteFromFieldType(&GetFieldType(1,$tname,$fldname[$i])))&nbsp;{
+			$pOverString&nbsp;=&nbsp;$fldname[$i];
+			return&nbsp;1;
+		}
+	}
+ 
+	return&nbsp;0;
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>#ＳＱＬ接続&nbsp;▼▼▼▼▼▼▼<br>&pConnectSQL;<br> <br><br>#入力文字列のバイト数のチェック&nbsp;---<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>if(&IsOverString($INI{'GROBAL-SiDBName'})&nbsp;eq&nbsp;1)&nbsp;{</font><br>print&nbsp;&Err_Kanri("$pOverString&nbsp;エラー");<br>}<br> <br><br>#ＳＱＬ切断&nbsp;▲▲▲▲▲▲▲<br> <br><br>(kanri.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='SetFieldToArray.html'>前のページ</a><br>SetFieldToArray </td>
+			<td align='right'> <a href='GetValueFromSTH.html'>次のページ</a><br>GetValueFromSTH </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

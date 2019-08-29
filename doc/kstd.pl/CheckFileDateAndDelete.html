@@ -1,0 +1,67 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ExportHash.html'>前のページ</a><br>ExportHash </td>
+			<td align='right'> <a href='MakeTempLabel.html'>次のページ</a><br>MakeTempLabel </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>CheckFileDateAndDelete</font> --- ファイル日付を確認して削除する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)mode:オプションhour:v時間で比較 <br> (string)fpath:ファイルのパス <br> (integer)v:作成してからv時間までなら削除しない</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)strtmp:ラベル化した文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;CheckFileDateAndDelete&nbsp;{
+	local($mode,$fpath,$v)&nbsp;=&nbsp;@_;
+	local($ctime,$ftime);
+ 
+	#エラー処理
+	if(!(-e&nbsp;$fpath))&nbsp;{
+		return&nbsp;"0";
+	}
+ 
+	if($mode&nbsp;eq&nbsp;"hour")&nbsp;{
+		#デバグ用
+		#print&nbsp;&PH;
+		#print&nbsp;&GetSpecDateString(time&nbsp;+&nbsp;$v&nbsp;*&nbsp;60&nbsp;*&nbsp;60);&nbsp;
+		#print&nbsp;"&lt;br&gt;";
+ 
+		$ctime&nbsp;=&nbsp;time;
+		$ftime&nbsp;=&nbsp;&GetSpecFileInfo($fpath,"mtime");
+ 
+		$ltime&nbsp;=&nbsp;$ctime&nbsp;-&nbsp;$ftime;
+ 
+		#print&nbsp;&GetSpecDateString($ftime)&nbsp;.&nbsp;"&lt;br&gt;";
+		#print&nbsp;&GetSpecDateString($ctime)&nbsp;.&nbsp;"&lt;br&gt;";
+		#print&nbsp;$v&nbsp;*&nbsp;60&nbsp;*&nbsp;60&nbsp;.&nbsp;"&lt;br&gt;";
+ 
+		if($ltime&nbsp;&lt;&nbsp;$v&nbsp;*&nbsp;60&nbsp;*&nbsp;60)&nbsp;{
+			return&nbsp;"0";
+		}&nbsp;else&nbsp;{
+			unlink&nbsp;$fpath;
+			return&nbsp;"1";
+		}
+	}
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br>sub&nbsp;Init_Cart&nbsp;{<br> <br>&GetCookie;<br>$MyCartFile&nbsp;=&nbsp;"$INI{'GROBAL-CartFilePath'}$COOKIE{'CART-id'}";<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>&CheckFileDateAndDelete("hour",$MyCartFile,"1");</font><br> <br>if(0)&nbsp;{<br>print&nbsp;&PH;<br>print&nbsp;$COOKIE{'CART-id'};<br>print&nbsp;(-e&nbsp;$MyCartFile);<br> <br><br>(glib.plから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ExportHash.html'>前のページ</a><br>ExportHash </td>
+			<td align='right'> <a href='MakeTempLabel.html'>次のページ</a><br>MakeTempLabel </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

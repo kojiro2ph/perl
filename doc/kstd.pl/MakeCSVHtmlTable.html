@@ -1,0 +1,51 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='Init_Tag.html'>前のページ</a><br>Init_Tag </td>
+			<td align='right'> <a href='MakeSelectionBySectionArray.html'>次のページ</a><br>MakeSelectionBySectionArray </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>MakeCSVHtmlTable</font> --- CSVをHTMLで表示する(&lt;table&gt;...)
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(integer)mode:オプション1:標準 <br> (hash)csv:CSV連想配列</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>なし</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;MakeCSVHtmlTable&nbsp;{
+	local($mode,%csv)&nbsp;=&nbsp;@_;
+	local($strtmp,$i,$tmp01,$tmp02);
+ 
+	if($mode&nbsp;eq&nbsp;1)&nbsp;{
+		$strtmp&nbsp;.=&nbsp;"&lt;table&nbsp;border='1'&gt;";
+		for($i&nbsp;=&nbsp;0;$i&nbsp;&lt;=&nbsp;$csv{'MAXRECORD'};&nbsp;$i++)&nbsp;{
+			$tmp01&nbsp;=&nbsp;join("",MAX,"_",$i);
+			$strtmp&nbsp;.=&nbsp;"&lt;tr&gt;";	
+			for($j&nbsp;=&nbsp;0;&nbsp;$j&nbsp;&lt;=&nbsp;$csv{$tmp01};&nbsp;$j++)&nbsp;{
+				$tmp02&nbsp;=&nbsp;join("",$i,"_",$j);
+				$csv{$tmp02}&nbsp;=&nbsp;&ConvHTMLTag($csv{$tmp02});
+				$strtmp&nbsp;.=&nbsp;"&lt;td&gt;$csv{$tmp02}&lt;/td&gt;";
+			}
+			$strtmp&nbsp;.=&nbsp;"&lt;/tr&gt;";
+		}
+		$strtmp&nbsp;.=&nbsp;"&lt;/table&gt;";
+		return&nbsp;$strtmp;
+	}
+}
+</font></pre></td></tr></table>
+
+			サンプルなし
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='Init_Tag.html'>前のページ</a><br>Init_Tag </td>
+			<td align='right'> <a href='MakeSelectionBySectionArray.html'>次のページ</a><br>MakeSelectionBySectionArray </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

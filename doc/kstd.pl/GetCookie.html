@@ -1,0 +1,50 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ListHash.html'>前のページ</a><br>ListHash </td>
+			<td align='right'> <a href='PutCookie.html'>次のページ</a><br>PutCookie </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>GetCookie</font> --- クッキーを%COOKIE連想配列で取得する&nbsp;-&gt;$COOKIE{k-v}
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>なし</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>なし</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;GetCookie&nbsp;{
+	local($strtmp,$c,$p,$n,$v,$vn,$vv,@p,@parray);
+	$c&nbsp;=&nbsp;$ENV{'HTTP_COOKIE'};
+	@parray&nbsp;=&nbsp;split(/;/,$c);
+	foreach&nbsp;$p&nbsp;(@parray)&nbsp;{
+		($n,$v)&nbsp;=&nbsp;split(/=/,$p);
+		$n&nbsp;=~&nbsp;s/&nbsp;//g;
+		@varray&nbsp;=&nbsp;split(/,/,$v);
+		foreach&nbsp;$v&nbsp;(@varray)&nbsp;{
+			($vn,$vv)&nbsp;=&nbsp;split(/:/,$v);
+			$strtmp&nbsp;=&nbsp;$n&nbsp;.&nbsp;"x"&nbsp;.&nbsp;$vn;
+			${$strtmp}&nbsp;=&nbsp;$COOKIE{"$n\-$vn"}&nbsp;=&nbsp;$vv;
+		}
+	}
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>#カート初期化<br>########################################<br> <br>sub&nbsp;Init_Cart&nbsp;{<br> <br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>&GetCookie;</font><br>$MyCartFile&nbsp;=&nbsp;"$INI{'GROBAL-CartFilePath'}$COOKIE{'CART-id'}";<br>&CheckFileDateAndDelete("hour",$MyCartFile,"1");<br> <br>if(0)&nbsp;{<br>print&nbsp;&PH;<br> <br><br>(glib.plから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ListHash.html'>前のページ</a><br>ListHash </td>
+			<td align='right'> <a href='PutCookie.html'>次のページ</a><br>PutCookie </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

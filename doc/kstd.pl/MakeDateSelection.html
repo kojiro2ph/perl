@@ -1,0 +1,79 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeHashFromStrArray.html'>前のページ</a><br>MakeHashFromStrArray </td>
+			<td align='right'> <a href='ImportHash.html'>次のページ</a><br>ImportHash </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>MakeDateSelection</font> --- 日付のselectionを作成する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(integer)mode:オプション</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)strtmp:コンボ文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;MakeDateSelection&nbsp;{
+	local($mode,$date,$sname)&nbsp;=&nbsp;@_;
+	local($y_i,$m_i,$d_i,$y_max,$m_max,$d_max);
+ 
+	$cur_y&nbsp;=&nbsp;&GetSpecDateString($date,"year");
+	$cur_m&nbsp;=&nbsp;&GetSpecDateString($date,"mon");
+	$cur_d&nbsp;=&nbsp;&GetSpecDateString($date,"mday");
+ 
+	$y_max&nbsp;=&nbsp;$cur_y&nbsp;+&nbsp;1;
+	$m_max&nbsp;=&nbsp;12;
+	$d_max&nbsp;=&nbsp;31;
+ 
+	if($pselecteddate&nbsp;eq&nbsp;"")&nbsp;{
+		$selecteddate&nbsp;=&nbsp;"$cur_y$cur_m$cur_d";
+	}&nbsp;else&nbsp;{
+		$selecteddate&nbsp;=&nbsp;"$pselecteddate";
+	}
+ 
+	if($mode&nbsp;eq&nbsp;1)&nbsp;{
+		for($y_i&nbsp;=&nbsp;$cur_y;&nbsp;$y_i&nbsp;&lt;=&nbsp;$y_max;&nbsp;$y_i++)&nbsp;{
+			for($m_i&nbsp;=&nbsp;1;&nbsp;$m_i&nbsp;&lt;=&nbsp;$m_max;&nbsp;$m_i++)&nbsp;{
+				for($d_i&nbsp;=&nbsp;1;&nbsp;$d_i&nbsp;&lt;=&nbsp;$d_max;&nbsp;$d_i++)&nbsp;{
+ 
+					$py&nbsp;=&nbsp;sprintf("%04d",$y_i);
+					$pm&nbsp;=&nbsp;sprintf("%02d",$m_i);
+					$pd&nbsp;=&nbsp;sprintf("%02d",$d_i);
+ 
+					if($selecteddate&nbsp;eq&nbsp;"$py$pm$pd")&nbsp;{
+						$selected&nbsp;=&nbsp;"&nbsp;selected";
+					}&nbsp;else&nbsp;{
+						$selected&nbsp;=&nbsp;"";
+					}
+ 
+					$pdate&nbsp;=&nbsp;join("/",$py,$pm,$pd);
+					$strtmp&nbsp;.=&nbsp;"&lt;option&nbsp;value=\"$pdate\"$selected&gt;$pdate&lt;/option&gt;\n";
+				}
+			}
+		}
+ 
+		$strtmp&nbsp;=&nbsp;"&lt;select&nbsp;name=\"$sname\"&gt;&nbsp;$strtmp&nbsp;&lt;/select&gt;";
+ 
+		return&nbsp;$strtmp;
+	}
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>$InputDay&nbsp;=&nbsp;join("/",$in_y,$in_m,$in_d);<br> <br>#PublishDay&nbsp;初期化<br>#$PublishDay&nbsp;=~&nbsp;s/\///g;<br>#$pselecteddate&nbsp;=&nbsp;$PublishDay;<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>#$StrPublishDaySelection&nbsp;=&nbsp;&MakeDateSelection(1,time,"PublishDay");</font><br> <br><br> <br>#ＳＱＬ切断&nbsp;▲▲▲▲▲▲▲<br>&DisconnectSQL;<br> <br><br>(kanri.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeHashFromStrArray.html'>前のページ</a><br>MakeHashFromStrArray </td>
+			<td align='right'> <a href='ImportHash.html'>次のページ</a><br>ImportHash </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

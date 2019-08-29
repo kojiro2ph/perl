@@ -1,0 +1,49 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeRefresh.html'>前のページ</a><br>MakeRefresh </td>
+			<td align='right'> <a href='ConvDateString.html'>次のページ</a><br>ConvDateString </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>ConvHTMLTag</font> --- ＨＴＭＬ用文字列変換処理
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)strtmp:変換する文字列</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)ＨＴＭＬ文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;ConvHTMLTag&nbsp;{
+	local($strtmp)&nbsp;=&nbsp;@_;
+ 
+	$strtmp&nbsp;=~&nbsp;s/&nbsp;/\&nbsp;/g;
+	$strtmp&nbsp;=~&nbsp;s/&lt;/\&lt;/g;
+	$strtmp&nbsp;=~&nbsp;s/&gt;/\&gt;/g;
+	$strtmp&nbsp;=~&nbsp;s/\r\n/\n/g;
+	$strtmp&nbsp;=~&nbsp;s/\n/&lt;br&gt;/g;
+	$strtmp&nbsp;=~&nbsp;s/&lt;br&gt;&lt;br&gt;/&lt;br&gt;&nbsp;&lt;br&gt;/g;
+	$strtmp&nbsp;=~&nbsp;s/
+/&lt;br&gt;/g;
+ 
+	return&nbsp;$strtmp;
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>");<br>####<br> <br>$g_content&nbsp;=&nbsp;$content;<br> <br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>#print&nbsp;&ConvHTMLTag($content);</font><br> <br>&jcode'convert(*content,"jis");<br> <br>&KstdSendMail($mode,$mailprog,"gurume\@gurume.net",$to,$subject,$content);<br>}<br> <br><br>(bosyu.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeRefresh.html'>前のページ</a><br>MakeRefresh </td>
+			<td align='right'> <a href='ConvDateString.html'>次のページ</a><br>ConvDateString </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

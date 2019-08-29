@@ -1,0 +1,53 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='Init_Multipart.html'>前のページ</a><br>Init_Multipart </td>
+			<td align='right'> <a href='RecordFileData.html'>次のページ</a><br>RecordFileData </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>ReadFileData</font> --- ファイル読込処理
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)fname:ファイル名（パス抜き） <br> (string)way:オプション1:文字列で返す2:配列で返す3:文字列で返す</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string&nbsp;or&nbsp;string&nbsp;array)ファイルの文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;ReadFileData&nbsp;{
+	local($fname,$way)&nbsp;=&nbsp;@_;
+	local(@strarray,$strline,$strtmp,$DebugPath);
+ 
+	open(DB,"$fname");
+	@strarray&nbsp;=&nbsp;&lt;DB&gt;;
+	close(DB);
+ 
+	if($way&nbsp;eq&nbsp;1)&nbsp;{
+		$strline&nbsp;=&nbsp;join("",@strarray);
+		return&nbsp;"$strline";
+	}&nbsp;elsif($way&nbsp;eq&nbsp;2)&nbsp;{
+		return&nbsp;@strarray;
+	}&nbsp;elsif($way&nbsp;eq&nbsp;3)&nbsp;{
+		$strline&nbsp;=&nbsp;join("",@strarray);
+		return&nbsp;"$strline";
+	}
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>#<br>#---------------------------------<br> <br>sub&nbsp;PB_ADMIN&nbsp;{<br>print&nbsp;&PH;<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>print&nbsp;&ConvVal(&JE(&ReadFileData("html/admin_header.html",3)));</font><br>print&nbsp;$K;<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>print&nbsp;&ConvVal(&JE(&ReadFileData("html/admin_footer.html",3)));</font><br>}<br> <br><br> <br><br>(admin.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='Init_Multipart.html'>前のページ</a><br>Init_Multipart </td>
+			<td align='right'> <a href='RecordFileData.html'>次のページ</a><br>RecordFileData </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

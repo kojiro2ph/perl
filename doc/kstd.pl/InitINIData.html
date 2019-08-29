@@ -1,0 +1,124 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='PrintMETA.html'>前のページ</a><br>PrintMETA </td>
+			<td align='right'> <a href='Sprint.html'>次のページ</a><br>Sprint </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>InitINIData</font> --- 設定ファイル初期化処理
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'> [Input        ]<br> (string)mode:オプション1:標準モード2:セクション内の文字列を返す <br> (string)fname:ファイル名 <br> (string)section:セクション</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string&nbsp;or&nbsp;hash)</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;InitINIData&nbsp;{
+	local($mode,&nbsp;$fname,&nbsp;$section)&nbsp;=&nbsp;@_;
+	local($i,$strline,$strtmp,$MatchFlag,$StrCurSection,$StrCurKey,$StrCurVal,$StrCurSecKey,@strarray);
+ 
+
+	#------------------------
+	#	標準モード
+	#------------------------
+ 
+	if($mode&nbsp;eq&nbsp;1)&nbsp;{
+		$strline&nbsp;=&nbsp;&ReadFileData($fname,&nbsp;1);	#設定ファイルの読み込み
+		$strline&nbsp;=&nbsp;&JE($strline);
+		$strline&nbsp;=~&nbsp;s/\r//g;
+		@strarray&nbsp;=&nbsp;split(/\n/,$strline);		#改行ごとに区切る
+ 
+		#設定ファイル文字列を&nbsp;連想配列&nbsp;INIData&nbsp;に格納するループ　---&nbsp;開始&nbsp;---
+		for($i&nbsp;=&nbsp;0;&nbsp;$i&nbsp;&lt;=&nbsp;$#strarray;&nbsp;$i++)&nbsp;{
+			#セクション初期化・及び変更
+			if($strarray[$i]&nbsp;=~&nbsp;/\[.*\]/)&nbsp;{
+				#print&nbsp;"Section:$strarray[$i]&lt;br&gt;\n";	#デバグ用
+				$strarray[$i]&nbsp;=~&nbsp;s/(\[|\])//g;		#中括弧をはずす
+				$StrCurSection&nbsp;=&nbsp;$strarray[$i];		#カレントセクション変数の格納する
+				next;
+			#キーと値のの初期化
+			}&nbsp;elsif($strarray[$i]&nbsp;=~&nbsp;/.*=.*/)&nbsp;{
+				$strarray[$i]&nbsp;=~&nbsp;s/(\t|;.*|\/\*.*\*\/)//g;	#タブ・スペース・コメントを除去する
+				($StrCurKey,$StrCurVal)&nbsp;=&nbsp;split(/=/,$strarray[$i],2);	#キーと値に分ける
+				#print&nbsp;"Key:$StrCurKey&nbsp;Value:$StrCurVal&lt;br&gt;\n";		#デバグ用
+				$StrCurSecKey&nbsp;=&nbsp;join("",$StrCurSection,"-",$StrCurKey);	#文字列&nbsp;-&gt;&nbsp;"キー-値"を作る
+				#print&nbsp;"MainKey:$StrCurSecKey&lt;br&gt;\n";		#デバグ用
+				$StrCurVal&nbsp;=&nbsp;&TrimL($StrCurVal);	#NEW
+				$StrCurVal&nbsp;=~&nbsp;s/(^"|"$)//g;		#両恥に&nbsp;"&nbsp;があった場合取り除く
+				$INIData{$StrCurSecKey}&nbsp;=&nbsp;$StrCurVal;	#連想配列に格納する
+			}
+		}
+		#設定ファイル文字列を&nbsp;連想配列&nbsp;INIData&nbsp;に格納するループ　---&nbsp;終了&nbsp;---
+ 
+
+		#キャンペーンルール、値の初期化
+		#renovate&nbsp;at&nbsp;ITS&nbsp;2002/01/16&nbsp;K.Hamada&nbsp;_campaignrule_と_carriagefee_を利用可能にする
+		$campaignrule&nbsp;=&nbsp;$INIData{"GROBAL-campaign_rule"}	=&nbsp;&ReadFileData("dtf/admin/campaignrule",3);
+		$carriagefee&nbsp;=&nbsp;$INIData{"GROBAL-carriage_fee"}	=&nbsp;&ReadFileData("dtf/admin/carriagefee",3);
+		$taxfee&nbsp;=&nbsp;$INIData{"GROBAL-tax_fee"}&nbsp;=&nbsp;&ReadFileData("dtf/admin/taxfee",3);
+ 
+		return&nbsp;%INIData;
+ 
+	#------------------------
+	#	ＨＴＭＬモード
+	#------------------------
+	}&nbsp;elsif($mode&nbsp;eq&nbsp;2)&nbsp;{
+ 
+		$MatchFlag&nbsp;=&nbsp;0;
+		$strtmp&nbsp;=&nbsp;"";
+ 
+		$strline&nbsp;=&nbsp;&ReadFileData($fname,&nbsp;1);	#設定ファイルの読み込み
+		$strline&nbsp;=&nbsp;&JE($strline);
+		$strline&nbsp;=~&nbsp;s/\r//g;
+		@strarray&nbsp;=&nbsp;split(/\n/,$strline);		#改行ごとに区切る
+ 
+
+		#設定ファイル文字列を&nbsp;連想配列&nbsp;INIData&nbsp;に格納するループ　---&nbsp;開始&nbsp;---
+		for($i&nbsp;=&nbsp;0;&nbsp;$i&nbsp;&lt;=&nbsp;$#strarray;&nbsp;$i++)&nbsp;{
+			if($MatchFlag&nbsp;eq&nbsp;0)&nbsp;{
+				#セクション初期化・及び変更
+				if($strarray[$i]&nbsp;=~&nbsp;/\[.*\]/)&nbsp;{
+					#print&nbsp;"Section:$strarray[$i]&lt;br&gt;\n";	#デバグ用
+					$strarray[$i]&nbsp;=~&nbsp;s/(\[|\])//g;		#中括弧をはずす
+					#print&nbsp;"$strarray[$i]&nbsp;$section&lt;br&gt;";	#デバグ用
+					if($strarray[$i]&nbsp;eq&nbsp;$section)&nbsp;{
+						$MatchFlag&nbsp;=&nbsp;1;
+						#print&nbsp;"match";	#デバグ用
+					}
+				}
+				
+				next;
+			}&nbsp;elsif($MatchFlag&nbsp;eq&nbsp;1)&nbsp;{
+				if($strarray[$i]&nbsp;=~&nbsp;/^\[.*\]/)&nbsp;{
+					last;
+				}&nbsp;else&nbsp;{
+					$strtmp&nbsp;=&nbsp;join("",$strtmp,$strarray[$i],"\n");
+				}
+			}
+		}
+		#設定ファイル文字列を&nbsp;連想配列&nbsp;INIData&nbsp;に格納するループ　---&nbsp;終了&nbsp;---
+ 
+
+		return&nbsp;$strtmp;
+	}
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br>&Init_Form("euc");<br>&Init_Tag;<br> <br>%INI&nbsp;=&nbsp;{};<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>%INI&nbsp;=&nbsp;&InitINIData(1,$MainINIFile);</font><br> <br>&pInit_SQL;<br> <br><br>#&Init_Admin;<br> <br><br>(admin.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='PrintMETA.html'>前のページ</a><br>PrintMETA </td>
+			<td align='right'> <a href='Sprint.html'>次のページ</a><br>Sprint </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

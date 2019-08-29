@@ -1,0 +1,47 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ConvNumMon.html'>前のページ</a><br>ConvNumMon </td>
+			<td align='right'> <a href='RecordBinaryFileData.html'>次のページ</a><br>RecordBinaryFileData </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>OpenBinaryFileData</font> --- バイナリでファイル読み込み
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)fname:ファイル名 (パスを含む)</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>ファイルデータ</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;OpenBinaryFileData&nbsp;{
+	local($fname)&nbsp;=&nbsp;@_;
+	local($strline);
+ 
+	open(BD,$fname);
+	while(&lt;BD&gt;)&nbsp;{
+		$strline&nbsp;=&nbsp;$strline&nbsp;.&nbsp;$_;
+	}
+	close(BD);
+ 
+	return&nbsp;$strline;
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br> <br>$attach_name&nbsp;=&nbsp;$form{'attach1'};<br>$attach_type&nbsp;=&nbsp;&DetectFileType($form{'attach1'});<br>$tmp01&nbsp;=&nbsp;join("",&WmMakeUserQueryPath($form{'myid'},$INI{'GROBAL-UserFileFolderName'}),"/",$form{'attach1'});<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>$attach_dat&nbsp;=&nbsp;&OpenBinaryFileData($tmp01);</font><br>$attach_dat&nbsp;=&nbsp;&EncodeBase64a($attach_dat);<br> <br><br>print&nbsp;SEND&nbsp;"--$bdry\n";<br>print&nbsp;SEND&nbsp;"Content-Type:&nbsp;$attach_type".';&nbsp;'."name=\"$attach_name\"\n";<br> <br><br>(webmail.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ConvNumMon.html'>前のページ</a><br>ConvNumMon </td>
+			<td align='right'> <a href='RecordBinaryFileData.html'>次のページ</a><br>RecordBinaryFileData </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

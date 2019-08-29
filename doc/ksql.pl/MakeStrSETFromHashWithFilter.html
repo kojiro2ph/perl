@@ -1,0 +1,52 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='GetByteFromFieldType.html'>前のページ</a><br>GetByteFromFieldType </td>
+			<td align='right'> <a href='GetRows.html'>次のページ</a><br>GetRows </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>MakeStrSETFromHashWithFilter</font> --- 連想配列を&nbsp;SET&nbsp;文字列にする（フィルターつき）
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(integer)mode:オプション <br>(string array)remove:SETしないフィールドの配列 <br>(hash)hash:SETする連想配列</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>SET&nbsp;k=v....の文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;MakeStrSETFromHashWithFilter&nbsp;{
+	local($mode,*remove,*hash)&nbsp;=&nbsp;@_;
+	local($k,$v);
+ 
+	while(($k,$v)&nbsp;=&nbsp;each&nbsp;%hash)&nbsp;{
+		if(&StringMatchToArray($k,@remove)&nbsp;eq&nbsp;"0")&nbsp;{
+			$strtmp&nbsp;.=&nbsp;"&nbsp;$k&nbsp;=&nbsp;'$v',";
+		}
+	}
+ 
+	chop($strtmp);
+ 
+	$strtmp&nbsp;=&nbsp;"SET&nbsp;$strtmp";
+ 
+
+	return&nbsp;$strtmp;
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br>########################################<br>#&nbsp;連想配列を&nbsp;SET&nbsp;文字列にする（フィルターつき）<br>########################################<br> <br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>sub&nbsp;MakeStrSETFromHashWithFilter&nbsp;{</font><br>local($mode,*remove,*hash)&nbsp;=&nbsp;@_;<br>local($k,$v);<br> <br>while(($k,$v)&nbsp;=&nbsp;each&nbsp;%hash)&nbsp;{<br>if(&StringMatchToArray($k,@remove)&nbsp;eq&nbsp;"0")&nbsp;{<br> <br><br>(ksql_oracle.plから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='GetByteFromFieldType.html'>前のページ</a><br>GetByteFromFieldType </td>
+			<td align='right'> <a href='GetRows.html'>次のページ</a><br>GetRows </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

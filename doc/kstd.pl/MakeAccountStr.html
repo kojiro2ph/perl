@@ -1,0 +1,54 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='CheckAndMakeFile.html'>前のページ</a><br>CheckAndMakeFile </td>
+			<td align='right'> <a href='ReverseString.html'>次のページ</a><br>ReverseString </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>MakeAccountStr</font> --- アカウント文字列作成
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)Id:ID <br> (string)Pwd:PASSWORD <br> (string)sp:暗号化したパスワード</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)strline:アカウント文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;MakeAccountStr&nbsp;{
+ 
+	local($Id,$Pwd,$sp)&nbsp;=&nbsp;@_;
+	local($strline,@strarray);
+ 
+
+	$Pwd&nbsp;=&nbsp;crypt($Pwd,substr($Pwd,0,2));
+ 
+	$Id&nbsp;=&nbsp;&ConvCSVString($Id);
+	$Pwd&nbsp;=&nbsp;&ConvCSVString($Pwd);
+	$strline&nbsp;=&nbsp;join($sp,$Id,$Pwd);
+ 
+	$strline&nbsp;=&nbsp;crypt($strline,substr($strline,0,2));
+ 
+	$strline&nbsp;=&nbsp;&ReverseString($strline);
+ 
+	return&nbsp;$strline;
+ 
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br>$BigLine&nbsp;=&nbsp;&ReadFileData($INI{'GROBAL-AccountFile'},1);<br>@BigLines&nbsp;=&nbsp;split(/\n/,$BigLine);<br> <br>for($i&nbsp;=&nbsp;0;&nbsp;$i&nbsp;&lt;=&nbsp;$#BigLines;&nbsp;$i++)&nbsp;{<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>if(&WmMakeAccountStr($form{'id'},$form{'ps'})&nbsp;eq&nbsp;$BigLines[$i])&nbsp;{</font><br>$Match_Flag&nbsp;=&nbsp;1;<br>}<br>}<br> <br><br> <br><br>(webmail.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='CheckAndMakeFile.html'>前のページ</a><br>CheckAndMakeFile </td>
+			<td align='right'> <a href='ReverseString.html'>次のページ</a><br>ReverseString </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

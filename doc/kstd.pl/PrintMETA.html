@@ -1,0 +1,44 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ConvDateString.html'>前のページ</a><br>ConvDateString </td>
+			<td align='right'> <a href='InitINIData.html'>次のページ</a><br>InitINIData </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>PrintMETA</font> --- METAタグ文字列作成処理
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)way:オプションeuc:charset を ＥＵＣコードにする</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)strtmp:METAタグ文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;PrintMETA&nbsp;{
+	local($way)&nbsp;=&nbsp;@_;
+	local($strtmp);
+ 
+	if($way&nbsp;eq&nbsp;"euc")&nbsp;{
+		$strtmp&nbsp;=&nbsp;q#&lt;META&nbsp;HTTP-EQUIV="Content-Type"&nbsp;CONTENT="text/html;&nbsp;charset=x-euc-jp"&gt;#;
+		return&nbsp;$strtmp;
+	}
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>sub&nbsp;Atari&nbsp;{<br> <br>&ImportHash(*form);<br> <br>print&nbsp;&PH;<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>print&nbsp;&PrintMETA("euc");</font><br>print&nbsp;&ConvVal(&ReadFileData("html/atari.html",3));<br>}<br> <br><br> <br><br> <br>(suijyaku.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ConvDateString.html'>前のページ</a><br>ConvDateString </td>
+			<td align='right'> <a href='InitINIData.html'>次のページ</a><br>InitINIData </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

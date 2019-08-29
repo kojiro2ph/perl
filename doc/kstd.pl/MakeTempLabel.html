@@ -1,0 +1,42 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='CheckFileDateAndDelete.html'>前のページ</a><br>CheckFileDateAndDelete </td>
+			<td align='right'> <a href='SortInOne.html'>次のページ</a><br>SortInOne </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>MakeTempLabel</font> --- ラベル作成
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)strtmp:ラベル化する文字列</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)strtmp:ラベル化した文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;MakeTempLabel&nbsp;{
+	local($strtmp)&nbsp;=&nbsp;@_;
+ 
+	$strtmp&nbsp;=&nbsp;"&lt;br&gt;&nbsp;&lt;br&gt;&nbsp;&lt;center&gt;&nbsp;$f4&lt;b&gt;$strtmp&lt;/b&gt;$fc&nbsp;&lt;/center&gt;";
+ 
+	return&nbsp;$strtmp;
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br>sub&nbsp;Err002&nbsp;{<br> <br>local($msg)&nbsp;=&nbsp;@_;<br> <br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>$K&nbsp;=&nbsp;&MakeTempLabel($msg);</font><br>&PB_ADMIN;<br>exit(0);<br> <br>}<br> <br><br> <br>(admin.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='CheckFileDateAndDelete.html'>前のページ</a><br>CheckFileDateAndDelete </td>
+			<td align='right'> <a href='SortInOne.html'>次のページ</a><br>SortInOne </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

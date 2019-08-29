@@ -1,0 +1,57 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='GetValueFromSTH.html'>前のページ</a><br>GetValueFromSTH </td>
+			<td align='right'>  </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>InsertFromHash</font> --- form&nbsp;変数を指定テーブルに登録
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)tname:テーブル名 <br>(hash)hash:連想配列</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>なし</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;InsertFromHash&nbsp;{
+	local($tname,*hash)&nbsp;=&nbsp;@_;
+	local($q,$TMP,$StrSET,@qfld);
+ 
+	#INSERT文作成
+	&ExecSQL("DESC&nbsp;$tname");
+	@qfld&nbsp;=&nbsp;&MakeArrayBySpecCat("Field");
+ 
+	foreach&nbsp;$TMP&nbsp;(@qfld)&nbsp;{
+		$StrSET&nbsp;.=&nbsp;"$TMP&nbsp;=&nbsp;\'$hash{$TMP}\',";
+	}
+	chop($StrSET);
+ 
+	$q&nbsp;=&nbsp;join("","
+		INSERT&nbsp;INTO&nbsp;$tname&nbsp;SET&nbsp;
+			$StrSET
+		");
+ 
+
+	#登録実行&nbsp;---------------&nbsp;ここから
+	&ExecSQL($q);
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br>#ポイント計算<br>$form{'Point'}&nbsp;=&nbsp;&Round($form{'gGoodsPriceTotal'}&nbsp;*&nbsp;$INI{'POINT-DiscountPer'},0);<br> <br>#メンバー追加<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>&InsertFromHash($INI{'GROBAL-MiDBName'},*form);</font><br> <br>#&nbsp;注文ＩＤにメンバーＩＤを記入する<br> <br>$q&nbsp;=&nbsp;"UPDATE&nbsp;$INI{'GROBAL-OiDBName'}&nbsp;SET&nbsp;UserID&nbsp;=&nbsp;\'$form{'UserID'}\',&nbsp;PointX&nbsp;=&nbsp;\'0\'&nbsp;WHERE&nbsp;OrderID&nbsp;=&nbsp;\'$form{'oid'}\'";<br>&ExecSQL($q);<br> <br><br>(member.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='GetValueFromSTH.html'>前のページ</a><br>GetValueFromSTH </td>
+			<td align='right'>  </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

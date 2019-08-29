@@ -1,0 +1,43 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='PH.html'>前のページ</a><br>PH </td>
+			<td align='right'> <a href='ConvHTMLTag.html'>次のページ</a><br>ConvHTMLTag </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>MakeRefresh</font> --- 更新ページ文字列作成処理
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)url:ジャンプ先ＵＲＬ（http:// から記入） <br> (string)sec:更新アクションの間　（$sec秒) <br> (string)str:ページに表示する文字列</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)ＨＴＭＬ文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;MakeRefresh&nbsp;{
+	local($url,$sec,$str)&nbsp;=&nbsp;@_;
+	local($strline);
+ 
+	$strline&nbsp;=&nbsp;"&lt;html&gt;&lt;head&gt;&lt;title&gt;更新中・・・&lt;/title&gt;&lt;META&nbsp;HTTP-EQUIV='Content-Type'&nbsp;Content=\"text/html;&nbsp;charset=x-euc-jp\"&gt;&lt;META&nbsp;HTTP-EQUIV='Refresh'&nbsp;Content=\"$sec&nbsp;;&nbsp;url='$url'\"&gt;&lt;/head&gt;&lt;body&gt;$str&lt;/body&gt;&lt;/html&gt;";
+	
+	return&nbsp;$strline;
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>$gid&nbsp;=&nbsp;$form{'gid'};<br> <br><br>#ＨＴＭＬ出力<br>print&nbsp;&PH;<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>print&nbsp;&MakeRefresh("/cgibin/search.cgi?act=s1g\&gid=$form{'gid'}",1,"");</font><br>exit(0);<br> <br>}<br> <br><br> <br><br>(bbs.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='PH.html'>前のページ</a><br>PH </td>
+			<td align='right'> <a href='ConvHTMLTag.html'>次のページ</a><br>ConvHTMLTag </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

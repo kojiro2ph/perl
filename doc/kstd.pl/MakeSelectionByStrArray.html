@@ -1,0 +1,77 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='GetSpecFileInfo.html'>前のページ</a><br>GetSpecFileInfo </td>
+			<td align='right'> <a href='MakeHashFromStrArray.html'>次のページ</a><br>MakeHashFromStrArray </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>MakeSelectionByStrArray</font> --- 配列から&nbsp;Select&nbsp;を作成する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(integer)mode:オプション <br> (string)selname:select名 <br> (string array)strarray:値 <br> (string array)strarray02:見出し</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)strtmp:select文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;MakeSelectionByStrArray&nbsp;{
+	local($mode,&nbsp;$selname,&nbsp;@strarray,@strarray02)&nbsp;=&nbsp;@_;
+	local($i,$tmp01,$strtmp);
+ 
+
+ 
+	if($mode&nbsp;eq&nbsp;1)&nbsp;{
+		for($i&nbsp;=&nbsp;0;$i&nbsp;&lt;=&nbsp;$#strarray;&nbsp;$i++)&nbsp;{
+			if($pselected&nbsp;eq&nbsp;$i)&nbsp;{
+				$selected&nbsp;=&nbsp;"selected";
+			}&nbsp;else&nbsp;{
+				$selected&nbsp;=&nbsp;"";
+			}
+ 
+			$strtmp&nbsp;.=&nbsp;"&lt;option&nbsp;value='$i'&nbsp;$selected&gt;$strarray[$i]&lt;/option&gt;\n";
+		}
+ 
+		$strtmp	=&nbsp;join("","&lt;select&nbsp;name='$selname'&gt;\n",$strtmp,"&lt;/select&gt;\n");
+ 
+		return&nbsp;$strtmp;
+	}
+	elsif($mode&nbsp;eq&nbsp;2)&nbsp;{
+ 
+		local($mode,&nbsp;$selname,&nbsp;*strarray,*strarray02)&nbsp;=&nbsp;@_;
+ 
+		for($i&nbsp;=&nbsp;0;$i&nbsp;&lt;=&nbsp;$#strarray;&nbsp;$i++)&nbsp;{
+ 
+			if($pselected&nbsp;eq&nbsp;$strarray[$i])&nbsp;{
+				$selected&nbsp;=&nbsp;"selected";
+			}&nbsp;else&nbsp;{
+				$selected&nbsp;=&nbsp;"";
+			}
+ 
+			$strtmp&nbsp;.=&nbsp;"&lt;option&nbsp;value='$strarray[$i]'&nbsp;$selected&gt;$strarray02[$i]&lt;/option&gt;\n";
+		}
+ 
+		$strtmp	=&nbsp;join("","&lt;select&nbsp;name='$selname'&gt;\n",$strtmp,"&lt;/select&gt;\n");
+ 
+		return&nbsp;$strtmp;
+	}
+ 
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>&ExecSQL("SELECT&nbsp;GoodsID&nbsp;from&nbsp;$INI{'GROBAL-GDBName'}&nbsp;WHERE&nbsp;GoodsID&nbsp;LIKE&nbsp;\'$MemberStoreID%\'");<br>@StrGoodsIDArray&nbsp;=&nbsp;&MakeArrayBySpecCat("GoodsID");<br>&ExecSQL("SELECT&nbsp;GoodsName&nbsp;from&nbsp;$INI{'GROBAL-GDBName'}&nbsp;WHERE&nbsp;GoodsID&nbsp;LIKE&nbsp;\'$MemberStoreID%\'");<br>@StrGoodsNameArray&nbsp;=&nbsp;&MakeArrayBySpecCat("GoodsName");<br> <br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>$GoodsNameSelection&nbsp;=&nbsp;&MakeSelectionByStrArray(2,"gid",*StrGoodsIDArray,*StrGoodsNameArray);</font><br> <br><br>#ＨＴＭＬ出力--------------------&nbsp;ここから<br>$K&nbsp;=&nbsp;&ConvVal(&JE(&ReadFileData("html/goods_edit_check_gid.html",3)));<br> <br><br> <br>(kanri.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='GetSpecFileInfo.html'>前のページ</a><br>GetSpecFileInfo </td>
+			<td align='right'> <a href='MakeHashFromStrArray.html'>次のページ</a><br>MakeHashFromStrArray </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

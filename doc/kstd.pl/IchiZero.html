@@ -1,0 +1,44 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MaruBatu.html'>前のページ</a><br>MaruBatu </td>
+			<td align='right'> <a href='SuffleArray.html'>次のページ</a><br>SuffleArray </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>IchiZero</font> --- １と０を交換する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(integer)q:1か0</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(integer)q=1だったら0,q=0だったら1</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;IchiZero&nbsp;{
+	local($q)&nbsp;=&nbsp;@_;
+ 
+	if($q)&nbsp;{
+		return&nbsp;"0";
+	}&nbsp;else&nbsp;{
+		return&nbsp;"1";
+	}
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>#STATUS連想配列初期化<br>%STATUS&nbsp;=&nbsp;();<br>%STATUS&nbsp;=&nbsp;&MakeHashFromString(1,$Status,":","=");<br> <br><br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>$STATUS{$form{"pstt"}}&nbsp;=&nbsp;&IchiZero($STATUS{$form{"pstt"}});</font><br> <br>while(($k,$v)&nbsp;=&nbsp;each&nbsp;%STATUS)&nbsp;{<br>push(@StatusArray,"$k=$v");<br>}<br>$Status&nbsp;=&nbsp;join(":",@StatusArray);<br> <br><br>(order_view.plから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MaruBatu.html'>前のページ</a><br>MaruBatu </td>
+			<td align='right'> <a href='SuffleArray.html'>次のページ</a><br>SuffleArray </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

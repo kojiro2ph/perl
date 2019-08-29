@@ -1,0 +1,49 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='Parapara.html'>前のページ</a><br>Parapara </td>
+			<td align='right'> <a href='ConvNumMon.html'>次のページ</a><br>ConvNumMon </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>StringMatchToArray</font> --- 配列中に指定した文字列が要素内になるかどうか
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)strF:探す文字列 <br> (string array)strarray:配列</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(boolean):&nbsp;1=ある,0=ないか</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;StringMatchToArray&nbsp;{
+ 
+	local($strF,@strarray)&nbsp;=&nbsp;@_;
+	local($TMP);
+ 
+
+	foreach&nbsp;$TMP&nbsp;(@strarray)&nbsp;{
+		if(($TMP&nbsp;eq&nbsp;$strF)&nbsp;&&&nbsp;($strF&nbsp;ne&nbsp;""))&nbsp;{
+			return&nbsp;"1";
+		}
+	}
+ 
+	return&nbsp;"0";
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>$q&nbsp;=&nbsp;"$q_select&nbsp;from&nbsp;catTB&nbsp;$q_where";<br> <br>&ExecSQL("DESC&nbsp;catTB");<br>@tmp&nbsp;=&nbsp;&MakeArrayBySpecCat("Field");<br> <br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>if(&StringMatchToArray("ID$form{'step'}",@tmp)&nbsp;eq&nbsp;"1")&nbsp;{</font><br>&ExecSQL($q);<br>@tmp&nbsp;=&nbsp;&MakeArrayBySpecCat($q_selectKey);<br>@tmp&nbsp;=&nbsp;&SortInOne(@tmp);<br> <br>#二階層以上なら親階層表示&nbsp;----------<br> <br><br>(search.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='Parapara.html'>前のページ</a><br>Parapara </td>
+			<td align='right'> <a href='ConvNumMon.html'>次のページ</a><br>ConvNumMon </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

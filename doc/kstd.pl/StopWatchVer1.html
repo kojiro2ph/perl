@@ -1,0 +1,49 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='DetectFileType.html'>前のページ</a><br>DetectFileType </td>
+			<td align='right'> <a href='ConvCSVtoNormal.html'>次のページ</a><br>ConvCSVtoNormal </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>StopWatchVer1</font> --- ストップウォッチ(version1.0)
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)flag:フラグ</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(integer)かかった時間(秒)</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;StopWatchVer1&nbsp;{
+ 
+	local($flag)&nbsp;=&nbsp;@_;
+	local($strtmp);
+ 
+	if($flag&nbsp;eq&nbsp;"start")&nbsp;{
+		$SW_START&nbsp;=&nbsp;time;
+	}&nbsp;elsif($flag&nbsp;eq&nbsp;"stop")&nbsp;{
+		$SW_STOP&nbsp;=&nbsp;time;
+		$strtmp&nbsp;=&nbsp;$SW_STOP&nbsp;-&nbsp;$SW_START;
+		return&nbsp;$strtmp;
+	}
+	
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br>}<br>#データ処理テスト-------------------------------------<br>elsif($form{'mallaction'}&nbsp;eq&nbsp;"99")&nbsp;{<br> <br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>&StopWatchVer1("start");</font><br> <br><br>print&nbsp;"Status:&nbsp;204&nbsp;No&nbsp;Data\n\n";<br> <br><br> <br><br>(showshipment.CGIから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='DetectFileType.html'>前のページ</a><br>DetectFileType </td>
+			<td align='right'> <a href='ConvCSVtoNormal.html'>次のページ</a><br>ConvCSVtoNormal </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

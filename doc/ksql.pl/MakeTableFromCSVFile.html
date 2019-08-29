@@ -1,0 +1,124 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeArrayBySpecCat.html'>前のページ</a><br>MakeArrayBySpecCat </td>
+			<td align='right'> <a href='MakeCSVFileFromTable.html'>次のページ</a><br>MakeCSVFileFromTable </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>MakeTableFromCSVFile</font> --- ファイルtoテーブル
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)fname:ファイル名 <br>(string)tname:テーブル名</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>なし</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;MakeTableFromCSVFile&nbsp;{
+	local($fname,$tname)&nbsp;=&nbsp;@_;
+	local($i,$fdata,$fldstat,$query,$fld,@fdataarray,@fldstatarray);
+ 
+	$fld&nbsp;=&nbsp;"";
+ 
+	#ファイル読み込み（タブ区切り）
+	$fdata&nbsp;=&nbsp;&JE(&ReadFileData("$fname",3));
+	@fdataarray&nbsp;=&nbsp;split(/\n/,$fdata);
+ 
+	#一行目を取り除く
+	shift(@fdataarray);
+	$fldstat&nbsp;=&nbsp;shift(@fdataarray);
+ 
+	#項目処理
+	$fldstat&nbsp;=~&nbsp;s/\t/,/g;
+	@fldstatarray&nbsp;=&nbsp;split(/,/,$fldstat);
+ 
+
+ 
+	#テーブル作成&nbsp;&nbsp;--------------ここから
+	for($i&nbsp;=&nbsp;0;&nbsp;$i&nbsp;&lt;=&nbsp;$#fldstatarray;&nbsp;$i++)&nbsp;{
+ 
+		$fldname&nbsp;	=&nbsp;"";
+		$fldtype&nbsp;	=&nbsp;"";
+		$typename&nbsp;	=&nbsp;"";
+		$typebyte&nbsp;	=&nbsp;"";
+ 
+		($fldname,$fldtype)&nbsp;=&nbsp;split(/_/,$fldstatarray[$i],2);
+		($typename,$typebyte)&nbsp;=&nbsp;split(/:/,$fldtype,2);
+ 
+
+		$typename&nbsp;=~&nbsp;s/vc/VARCHAR/g;
+		$typename&nbsp;=~&nbsp;s/txt/TEXT/g;
+ 
+
+		if($typename&nbsp;eq&nbsp;"VARCHAR")&nbsp;{
+			$fldtype&nbsp;=&nbsp;"$typename\($typebyte\)";
+		}&nbsp;else&nbsp;{
+			$fldtype&nbsp;=&nbsp;"$typename";
+		}
+		
+		$query&nbsp;.=&nbsp;"$fldname&nbsp;$fldtype,";
+		$fld&nbsp;.=&nbsp;"$fldname,";
+	}
+ 
+	chop($query);
+	chop($fld);
+ 
+
+ 
+	$sth&nbsp;=&nbsp;$dbh-&gt;prepare("CREATE&nbsp;TABLE&nbsp;$tname($query)");
+	$sth-&gt;execute();
+ 
+	#print&nbsp;"CREATE&nbsp;TABLE&nbsp;$tname($query)";
+ 
+
+	#行ごとのＩＮＳＥＲＴループ&nbsp;--------------ここから
+	for($i&nbsp;=&nbsp;0;&nbsp;$i&nbsp;&lt;=&nbsp;$#fdataarray;&nbsp;$i++)&nbsp;{
+		$query&nbsp;=&nbsp;"";
+ 
+		if($fdataarray[$i]&nbsp;eq&nbsp;"")&nbsp;{
+			next;
+		}
+ 
+		$fdataarray[$i]&nbsp;=&nbsp;&JE($fdataarray[$i]);&nbsp;#５月追加（重要）
+ 
+		@tmp&nbsp;=&nbsp;split(/\t/,$fdataarray[$i],$#fldstatarray&nbsp;+&nbsp;1);
+ 
+
+ 
+		for($j&nbsp;=&nbsp;0;&nbsp;$j&nbsp;&lt;=&nbsp;$#tmp;&nbsp;$j++)&nbsp;{
+			$tmp[$j]&nbsp;=~&nbsp;s/_T_/\t/g;
+			$tmp[$j]&nbsp;=~&nbsp;s/
+/\n/g;
+			$query&nbsp;.=&nbsp;"'$tmp[$j]',";
+		}
+ 
+		chop($query);
+ 
+		#print&nbsp;"&lt;font&nbsp;=\"2\"&gt;&lt;b&gt;$i&lt;/b&gt;$query&lt;/font&gt;&lt;br&gt;\n";
+		#print&nbsp;"$i&nbsp;INSERT&nbsp;INTO&nbsp;$tname($fld)&nbsp;VALUES&nbsp;($query)&lt;br&gt;\n";
+ 
+
+		$sth&nbsp;=&nbsp;$dbh-&gt;prepare("INSERT&nbsp;INTO&nbsp;$tname($fld)&nbsp;VALUES&nbsp;($query)");
+		$sth-&gt;execute();
+ 
+	}
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>#&Err002("$form{'tname'}_bak");<br>#テーブル削除<br>&ExecSQL("DROP&nbsp;TABLE&nbsp;$form{'tname'}_bak");	<br>&ExecSQL("ALTER&nbsp;TABLE&nbsp;$form{'tname'}&nbsp;RENAME&nbsp;$form{'tname'}_bak");<br>#テーブル作成<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>&MakeTableFromCSVFile("$INI{'GROBAL-DBFilePath'}$form{'dirname'}$form{'fname'}",$form{'tname'});</font><br> <br>$K&nbsp;=&nbsp;join("","<br>復元完了&nbsp;$BackToAdmin<br>");<br>}<br> <br><br>(backup.plから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeArrayBySpecCat.html'>前のページ</a><br>MakeArrayBySpecCat </td>
+			<td align='right'> <a href='MakeCSVFileFromTable.html'>次のページ</a><br>MakeCSVFileFromTable </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

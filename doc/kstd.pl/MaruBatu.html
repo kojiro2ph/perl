@@ -1,0 +1,44 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='GetDltDateString.html'>前のページ</a><br>GetDltDateString </td>
+			<td align='right'> <a href='IchiZero.html'>次のページ</a><br>IchiZero </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>MaruBatu</font> --- ○Ｘ判定
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(integer)q:1か0</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(integer)q=1だったら○,q=0だったら×</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;MaruBatu&nbsp;{
+	local($q)&nbsp;=&nbsp;@_;
+ 
+	if($q)&nbsp;{
+		return&nbsp;"○";
+	}&nbsp;else&nbsp;{
+		return&nbsp;"×";
+	}
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>@qfld&nbsp;=&nbsp;qw(GoodsName&nbsp;$CurGoodsCapacity&nbsp;GoodsCapacity&nbsp;GoodsPrice);<br>$q&nbsp;=&nbsp;"SELECT&nbsp;GoodsName,$CurGoodsCapacity&nbsp;AS&nbsp;GoodsCapacity,$CurGoodsPrice&nbsp;AS&nbsp;GoodsPrice&nbsp;from&nbsp;$INI{'GROBAL-GDBName'}&nbsp;WHERE&nbsp;GoodsID&nbsp;=&nbsp;\'$GoodsID[$i]\'";<br>&ExecSQL($q);<br>&GetValueFromSTH(2,"",*qfld);<br> <br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>$pcfmOrder&nbsp;=&nbsp;&MaruBatu($STATUS{"cfmOrder"});</font><br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>$pcfmMonRecv&nbsp;=&nbsp;&MaruBatu($STATUS{"cfmMonRecv"});</font><br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>$pcfmDeliv&nbsp;=&nbsp;&MaruBatu($STATUS{"cfmDeliv"});</font><br> <br>$ShopName&nbsp;	=&nbsp;&GetShopNameByMemberStoreID(&GetSid($GoodsID[$i]));<br> <br><br> <br>(order_view.plから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='GetDltDateString.html'>前のページ</a><br>GetDltDateString </td>
+			<td align='right'> <a href='IchiZero.html'>次のページ</a><br>IchiZero </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

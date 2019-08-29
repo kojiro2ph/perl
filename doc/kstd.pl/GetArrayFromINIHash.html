@@ -1,0 +1,53 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='GetMaxNumberFromINIHash.html'>前のページ</a><br>GetMaxNumberFromINIHash </td>
+			<td align='right'> <a href='FunnySQL.html'>次のページ</a><br>FunnySQL </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>GetArrayFromINIHash</font> --- 設定ファイルの指定セクションを配列に格納する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(integer)mode:オプション <br> (string)section:セクション <br> (hash)hash:設定ファイルデータの連想配列</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string&nbsp;array)tmparray:配列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;GetArrayFromINIHash&nbsp;{
+	local($mode,&nbsp;$section,&nbsp;%hash)&nbsp;=&nbsp;@_;
+	local($i,$tmp01,$strtmp,@tmparray);
+ 
+	if($mode&nbsp;eq&nbsp;1)&nbsp;{
+		for($i&nbsp;=&nbsp;1;$i&nbsp;&lt;=&nbsp;1000;&nbsp;$i++)&nbsp;{
+			$tmp01&nbsp;=&nbsp;join("",$section,"-",$i);
+			if($hash{$tmp01}&nbsp;eq&nbsp;"")&nbsp;{
+				last;
+			}&nbsp;else&nbsp;{
+				push(@tmparray,$hash{$tmp01});
+			}
+		}
+ 
+		return&nbsp;@tmparray;
+	}
+ 
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br>$tmp01&nbsp;=&nbsp;$form{'pid'};<br>@tmparray&nbsp;=&nbsp;&ConvCSVtoNormal($MyInfo{"ADDRESS_ATTR-$tmp01"});<br> <br><br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>@colorarray&nbsp;=&nbsp;&GetArrayFromINIHash(1,"COLORLIST",&nbsp;%INI);</font><br> <br><br>for($i&nbsp;=&nbsp;1;&nbsp;$i&nbsp;&lt;=&nbsp;$#colorarray;&nbsp;$i++)&nbsp;{<br>$TMP&nbsp;=&nbsp;$colorarray[$i];<br>$EditTable&nbsp;=&nbsp;$EditTable&nbsp;.&nbsp;"&lt;td&nbsp;bgcolor='$TMP'&gt;&lt;a&nbsp;href=\"javascript:void(0)\"&nbsp;onClick=\"SelectColor('$TMP')\"&gt;&lt;img&nbsp;src=\"images/blank.gif\"&nbsp;width=\"40\"&nbsp;height=\"20\"&nbsp;border=\"0\"&gt;&lt;/td&gt;\n";<br> <br><br>(webmail.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='GetMaxNumberFromINIHash.html'>前のページ</a><br>GetMaxNumberFromINIHash </td>
+			<td align='right'> <a href='FunnySQL.html'>次のページ</a><br>FunnySQL </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

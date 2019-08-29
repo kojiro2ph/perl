@@ -1,0 +1,36 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='URLEncode.html'>前のページ</a><br>URLEncode </td>
+			<td align='right'> <a href='ListHash.html'>次のページ</a><br>ListHash </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>URLDecode</font> --- 文字列をURLデコードする
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)strtmp:デコードする文字列</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)strtmp:デコードした文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;URLDecode&nbsp;{
+	local($strtmp)&nbsp;=&nbsp;@_;
+	$strtmp&nbsp;=~&nbsp;s/%([0-9a-f][0-9a-f])/pack("C",hex($1))/egi;
+	return&nbsp;$strtmp;
+}
+</font></pre></td></tr></table>
+
+			サンプルなし
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='URLEncode.html'>前のページ</a><br>URLEncode </td>
+			<td align='right'> <a href='ListHash.html'>次のページ</a><br>ListHash </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

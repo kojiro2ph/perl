@@ -1,0 +1,94 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='Init_Form.html'>前のページ</a><br>Init_Form </td>
+			<td align='right'> <a href='ReadFileData.html'>次のページ</a><br>ReadFileData </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>Init_Multipart</font> --- multipart/form-data&nbsp;のデータを&nbsp;form&nbsp;に格納する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)charcode:変換する文字コード</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>なし</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;Init_Multipart&nbsp;{
+	local($i,$key,$dum,$boundary,$fname,$formdata,$formhead,$formbody,$charcode,@formdata);
+ 
+	$charcode&nbsp;=&nbsp;$_[0];
+ 
+	($dum,$boundary)&nbsp;=&nbsp;$ENV{'CONTENT_TYPE'}&nbsp;=~&nbsp;/(.*)boundary=(.*)/;
+	$formdata&nbsp;.=&nbsp;$_&nbsp;while(&lt;STDIN&gt;);
+ 
+	#print&nbsp;&PH;
+	#print&nbsp;$formdata;
+	#exit(0);
+	@formdata&nbsp;=&nbsp;split(/--$boundary/,$formdata);
+	#print&nbsp;&Impact("$#formdata&lt;hr&gt;");
+ 
+	for($i&nbsp;=&nbsp;0;&nbsp;$i&nbsp;&lt;=&nbsp;$#formdata;&nbsp;$i++)&nbsp;{
+ 
+		#print&nbsp;"$formdata[$i]&lt;br&gt;";
+ 
+		if($ENV{"HTTP_HOST"}&nbsp;=~&nbsp;/www/)&nbsp;{
+			($formhead,$formbody)&nbsp;=&nbsp;split(/\r\n\r\n/,$formdata[$i],2);
+		}&nbsp;else&nbsp;{
+			($formhead,$formbody)&nbsp;=&nbsp;split(/\n\n/,$formdata[$i],2);
+		}
+ 
+		#データファイルならば
+		if($formhead&nbsp;=~&nbsp;/filename/)&nbsp;{
+ 
+			#&Err001("o");
+ 
+			($key)&nbsp;=&nbsp;$formhead&nbsp;=~&nbsp;/name="(.*?)"/;
+			($fname)&nbsp;=&nbsp;$formhead&nbsp;=~&nbsp;/filename="(.*?)"/;
+			($dum,$fname)&nbsp;=&nbsp;$fname&nbsp;=~&nbsp;/(.*)\\(.*)/;
+ 
+
+			$formdata{"$key\_fname"}&nbsp;=&nbsp;$fname;
+			$formdata{"$key\_fdata"}&nbsp;=&nbsp;$formbody;
+ 
+			#print&nbsp;"$fred&nbsp;$fname&lt;hr&gt;&nbsp;$formbody&nbsp;$fc";
+			#exit(0);
+		}
+		#変数ならば
+		else&nbsp;{
+			($key)&nbsp;=&nbsp;$formhead&nbsp;=~&nbsp;/name="(.*)"/;
+			chop($formbody);
+ 
+			$formbody&nbsp;=~&nbsp;s/[\r|\n]//g;
+ 
+			#print&nbsp;"&lt;B&gt;$key&nbsp;=&nbsp;$formbody&lt;/b&gt;&lt;br&gt;";
+ 
+			#renovate&nbsp;at&nbsp;ITS&nbsp;2002/01/21&nbsp;K.Hamada&nbsp;EUCに変換する
+ 
+			$formbody&nbsp;=~&nbsp;tr/+/&nbsp;/;
+			$formbody&nbsp;=~&nbsp;s/%([A-Fa-f0-9][A-Fa-f0-9])/pack("C",&nbsp;hex($1))/eg;
+			&jcode'convert(*formbody,&nbsp;$charcode);
+			$formbody&nbsp;=~&nbsp;s/\r//g;
+ 
+			$form{$key}&nbsp;=&nbsp;$formbody;
+		}
+	}
+ 
+
+ 
+}
+</font></pre></td></tr></table>
+
+			サンプルなし
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='Init_Form.html'>前のページ</a><br>Init_Form </td>
+			<td align='right'> <a href='ReadFileData.html'>次のページ</a><br>ReadFileData </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

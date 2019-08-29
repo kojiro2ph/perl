@@ -1,0 +1,52 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeCSVFileFromTable.html'>前のページ</a><br>MakeCSVFileFromTable </td>
+			<td align='right'> <a href='GetFieldType.html'>次のページ</a><br>GetFieldType </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>GetSpecFieldBySpecKeyFromSpecTable</font> --- 指定テーブルから指定キーの指定項目を取得する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)mode:オプション1:標準 <br>(string)tname:テーブル名 <br>(string)key_fldname:フィールド名 <br>(string)key_fldvalue:フィールドの値 <br>(string)fldname:取得するフィールド名</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)strtmp:該当したデータ文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;GetSpecFieldBySpecKeyFromSpecTable&nbsp;{
+	local($mode,$tname,$key_fldname,$key_fldvalue,$fldname)&nbsp;=&nbsp;@_;
+ 
+	if($mode&nbsp;eq&nbsp;1)&nbsp;{
+		&ExecSQL("SELECT&nbsp;$fldname&nbsp;FROM&nbsp;$tname&nbsp;WHERE&nbsp;$key_fldname&nbsp;=&nbsp;'$key_fldvalue'");
+ 
+		#変数格納
+		$ref&nbsp;=&nbsp;$sth-&gt;fetchrow_hashref();
+		$strtmp&nbsp;=&nbsp;$ref-&gt;{$fldname};
+		$rc&nbsp;=&nbsp;$sth-&gt;finish;
+ 
+
+		return&nbsp;$strtmp;
+	}
+ 
+
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br>########################################<br>#指定テーブルから指定キーの指定項目を取得する<br>########################################<br> <br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>sub&nbsp;GetSpecFieldBySpecKeyFromSpecTable&nbsp;{</font><br>local($mode,$tname,$key_fldname,$key_fldvalue,$fldname)&nbsp;=&nbsp;@_;<br> <br>if($mode&nbsp;eq&nbsp;1)&nbsp;{<br>&ExecSQL("SELECT&nbsp;$fldname&nbsp;FROM&nbsp;$tname&nbsp;WHERE&nbsp;$key_fldname&nbsp;=&nbsp;'$key_fldvalue'");<br> <br><br> <br>(ksql_oracle.plから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeCSVFileFromTable.html'>前のページ</a><br>MakeCSVFileFromTable </td>
+			<td align='right'> <a href='GetFieldType.html'>次のページ</a><br>GetFieldType </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

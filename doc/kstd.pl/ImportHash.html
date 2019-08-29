@@ -1,0 +1,45 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeDateSelection.html'>前のページ</a><br>MakeDateSelection </td>
+			<td align='right'> <a href='ExportHash.html'>次のページ</a><br>ExportHash </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>ImportHash</font> --- 連想配列をグローバル変数に取り込む
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(hash)hash:取り込み連想配列</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>なし</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;ImportHash&nbsp;{
+	local(*hash)&nbsp;=&nbsp;@_;
+	local($k,$v);
+	#print&nbsp;&PH;
+	while(($k,$v)&nbsp;=&nbsp;each&nbsp;%hash)&nbsp;{
+		#デバグ用
+		#print&nbsp;"$k&nbsp;=&nbsp;$v&lt;br&gt;\n";
+		${$k}&nbsp;=&nbsp;$v;
+	}
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br>#メンバー登録処理&nbsp;---------------&nbsp;ここから<br>&InsertMemberFromForm;<br> <br>#メール送信&nbsp;-------------&nbsp;ここから<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>&ImportHash(*form);</font><br>&SendMemberThankMail;<br> <br>$K&nbsp;=&nbsp;&ConvVal(&JE(&ReadFileData("html/member_reg_thank.html",3)));<br> <br>}<br> <br><br>(member.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeDateSelection.html'>前のページ</a><br>MakeDateSelection </td>
+			<td align='right'> <a href='ExportHash.html'>次のページ</a><br>ExportHash </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

@@ -1,0 +1,45 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='Round.html'>前のページ</a><br>Round </td>
+			<td align='right'> <a href='MaruBatu.html'>次のページ</a><br>MaruBatu </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>GetDltDateString</font> --- 日付フォーマットを所得する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>なし</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)strtmp:YYYY/MM/DD</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;GetDltDateString&nbsp;{
+	local($strtmp);
+ 
+	$strtmp&nbsp;=&nbsp;&GetDateString;
+	$strtmp&nbsp;=~&nbsp;s/:/\//g;
+	($strtmp,$dum)&nbsp;=&nbsp;$strtmp&nbsp;=~&nbsp;/(..........)(......)/;
+ 
+	return&nbsp;$strtmp;
+ 
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>#商品一覧表示-----------------------<br>################################################################<br>if($form{'step'}&nbsp;eq&nbsp;"1")&nbsp;{<br> <br><br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>#$cur_date&nbsp;=&nbsp;&GetDltDateString;</font><br>#$cur_date&nbsp;=~&nbsp;s/\///g;<br> <br>$pImageCount&nbsp;=&nbsp;0;<br>$pPublishCount&nbsp;=&nbsp;0;<br> <br><br> <br>(kanri.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='Round.html'>前のページ</a><br>Round </td>
+			<td align='right'> <a href='MaruBatu.html'>次のページ</a><br>MaruBatu </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

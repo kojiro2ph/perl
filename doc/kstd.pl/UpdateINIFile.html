@@ -1,0 +1,67 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ConvInputString.html'>前のページ</a><br>ConvInputString </td>
+			<td align='right'> <a href='GetFileArray.html'>次のページ</a><br>GetFileArray </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>UpdateINIFile</font> --- 設定ファイルの指定項目の値を更新する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(integer)mode:オプション <br> (string)fname:ファイル名 <br> (string)section:セクション <br> (string)strFkey:キー <br> (string)strCval:新しい値</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>なし</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;UpdateINIFile&nbsp;{
+	local($mode,$fname,$section,$strFkey,$strCval)&nbsp;=&nbsp;@_;
+	local($i,$StrCurSection,$strline,@strarray);
+	
+ 
+	$strline&nbsp;=&nbsp;&ReadFileData($fname,&nbsp;1);	#設定ファイルの読み込み
+	$strline&nbsp;=&nbsp;&JE($strline);
+	@strarray&nbsp;=&nbsp;split(/\n/,$strline);		#改行ごとに区切る
+ 
+
+	for($i&nbsp;=&nbsp;0;&nbsp;$i&nbsp;&lt;=&nbsp;$#strarray;&nbsp;$i++)&nbsp;{
+		#セクション初期化・及び変更
+		if($strarray[$i]&nbsp;=~&nbsp;/\[.*\]/)&nbsp;{
+			#print&nbsp;"Section:$strarray[$i]&lt;br&gt;\n";	#デバグ用
+			
+			$StrCurSection&nbsp;=&nbsp;$strarray[$i];		#カレントセクション変数の格納する
+			$StrCurSection&nbsp;=~&nbsp;s/(\[|\])//g;		#中括弧をはずす
+			next;
+		#キーと値のの初期化
+		}&nbsp;elsif(($strarray[$i]&nbsp;=~&nbsp;/^$strFkey/)&nbsp;&&&nbsp;($StrCurSection&nbsp;eq&nbsp;$section))&nbsp;{
+			$strFval&nbsp;=&nbsp;join("",$section,"-",$strFkey);
+			$strarray[$i]&nbsp;=~&nbsp;s/=&nbsp;$INI{$strFval}/=&nbsp;$strCval/g;
+		}
+	}
+ 
+	$strline&nbsp;=&nbsp;join("\n",@strarray);
+	&jcode'convert(*strline,&nbsp;$INI{'GROBAL-DecodeINITo'});
+	&RecordFileData($fname,&nbsp;3,&nbsp;$strline,&nbsp;@strarray);
+ 
+
+ 
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br> <br><br>for($i&nbsp;=&nbsp;1;&nbsp;$i&nbsp;&lt;=&nbsp;$INI{'GROBAL-GoodsCanpaign_MAX'};&nbsp;$i++)&nbsp;{<br>#見出し更新<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>&WmUpdateINIFile(1,"$INI{'GROBAL-AdminFilePath'}gc.ini","LABEL","s$i",$GC{"LABEL-s$i"},$form{"gclbl_s$i"});</font><br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>&WmUpdateINIFile(1,"$INI{'GROBAL-AdminFilePath'}gc.ini","LABEL","b$i",$GC{"LABEL-b$i"},$form{"gclbl_b$i"});</font><br>}<br> <br>$K&nbsp;=&nbsp;join("","<br>見出しを更新しました。<br> <br><br>(canpaign.plから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ConvInputString.html'>前のページ</a><br>ConvInputString </td>
+			<td align='right'> <a href='GetFileArray.html'>次のページ</a><br>GetFileArray </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

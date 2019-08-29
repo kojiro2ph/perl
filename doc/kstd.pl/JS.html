@@ -1,0 +1,42 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='JE.html'>前のページ</a><br>JE </td>
+			<td align='right'> <a href='Init_Tag.html'>次のページ</a><br>Init_Tag </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>JS</font> --- ＳＨＩＦＴ－ＪＩＳコード変換
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)strtmp:文字列</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)strtmp:文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;JS&nbsp;{
+	local($strtmp)&nbsp;=&nbsp;@_;
+ 
+	&jcode'convert(*strtmp,&nbsp;'sjis');
+ 
+	return&nbsp;$strtmp;
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>$datestring<br>);<br> <br>$datestring&nbsp;=~&nbsp;s/:/_/g;<br>$g_mid&nbsp;=&nbsp;"$form{'select'}$datestring";<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>$InLine&nbsp;=&nbsp;&JS($InLine);</font><br> <br>&RecordFileData("data/$g_mid",3,$InLine,@DUM);<br> <br>}<br> <br><br> <br>(bosyu.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='JE.html'>前のページ</a><br>JE </td>
+			<td align='right'> <a href='Init_Tag.html'>次のページ</a><br>Init_Tag </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

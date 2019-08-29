@@ -1,0 +1,50 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ReadCSVFile.html'>前のページ</a><br>ReadCSVFile </td>
+			<td align='right'> <a href='TrimL.html'>次のページ</a><br>TrimL </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>CountChar</font> --- 指定文字カウント処理
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)mode:オプション1:標準 <br> (string)str:探すところの文字列 <br> (charF)str:カウントする文字</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(integer)一致数</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;CountChar&nbsp;{
+	local($mode,$str,$charF)&nbsp;=&nbsp;@_;
+	local($i,$cnt,@strarray);
+ 
+	if($mode&nbsp;eq&nbsp;1)&nbsp;{
+		$cnt&nbsp;=&nbsp;0;
+		@strarray&nbsp;=&nbsp;split(//,$str);
+ 
+		for($i&nbsp;=&nbsp;0;&nbsp;$i&nbsp;&lt;=&nbsp;$#strarray;&nbsp;$i++)&nbsp;{
+			if($strarray[$i]&nbsp;eq&nbsp;$charF)&nbsp;{
+				$cnt++;
+			}
+		}
+ 
+		$strtmp&nbsp;=&nbsp;$cnt;
+	}
+ 
+	return&nbsp;$strtmp;
+}
+</font></pre></td></tr></table>
+
+			サンプルなし
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='ReadCSVFile.html'>前のページ</a><br>ReadCSVFile </td>
+			<td align='right'> <a href='TrimL.html'>次のページ</a><br>TrimL </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

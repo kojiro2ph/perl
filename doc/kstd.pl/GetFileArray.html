@@ -1,0 +1,60 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='UpdateINIFile.html'>前のページ</a><br>UpdateINIFile </td>
+			<td align='right'> <a href='Parapara.html'>次のページ</a><br>Parapara </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>GetFileArray</font> --- ファイル配列を取得する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(integer)mode:オプション1:全部取得する2:".",".."を除いた状態で取得する3:ディレクトリのみ取得する <br> (string)path:取得するディレクトリのパス</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>なし</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;GetFileArray&nbsp;{
+	local($mode,$path)&nbsp;=&nbsp;@_;
+	local($i,$strtmp,@tmparray);
+ 
+	if($mode&nbsp;eq&nbsp;1)&nbsp;{
+		opendir(DIR,"$path");
+		@tmparray&nbsp;=&nbsp;readdir(DIR);
+		closedir(DIR);
+ 
+		return&nbsp;@tmparray;
+	}&nbsp;elsif($mode&nbsp;eq&nbsp;2)&nbsp;{
+		opendir(DIR,"$path");
+		@tmparray&nbsp;=&nbsp;grep(!/^(\.|\.\.)$/,readdir(DIR));
+		closedir(DIR);
+ 
+		return&nbsp;@tmparray;
+	}&nbsp;elsif($mode&nbsp;eq&nbsp;3)&nbsp;{
+		opendir(DIR,"$path");
+		@tmparray&nbsp;=&nbsp;grep&nbsp;{&nbsp;(-d&nbsp;"$path$_")&nbsp;&&&nbsp;(!/^(\.|\.\.)$/)&nbsp;}&nbsp;readdir(DIR);
+		closedir(DIR);
+ 
+		return&nbsp;@tmparray;
+	}
+	
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>local($mode,$cid)&nbsp;=&nbsp;@_;<br> <br><br> <br>&CleanMyCart;<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>#@CartAnimMax&nbsp;=&nbsp;&GetFileArray(2,"../images/cart_anim/");</font><br>#$CartAnim&nbsp;=&nbsp;sprintf("%02d",int(rand($#CartAnimMax)));<br>$CartTable&nbsp;=&nbsp;&GetCartTable("3");<br>$JS&nbsp;=&nbsp;&ConvVal(&JE(&ReadFileData("html/CART_JS.txt",3)));<br>$K&nbsp;=&nbsp;&ConvVal(&JE(&ReadFileData("html/cat.html",3)));<br>}<br> <br><br>(cart.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='UpdateINIFile.html'>前のページ</a><br>UpdateINIFile </td>
+			<td align='right'> <a href='Parapara.html'>次のページ</a><br>Parapara </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

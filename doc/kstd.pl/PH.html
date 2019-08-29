@@ -1,0 +1,38 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='GetDateString.html'>前のページ</a><br>GetDateString </td>
+			<td align='right'> <a href='MakeRefresh.html'>次のページ</a><br>MakeRefresh </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>PH</font> --- ヘッダー文字列作成処理
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>なし</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string)ＨＴＭＬヘッダ文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;PH&nbsp;{
+	return&nbsp;"Content-Type:&nbsp;text/html\n\n";
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>#---------------------------------<br>#<br>#---------------------------------<br> <br>sub&nbsp;PB_ADMIN&nbsp;{<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>print&nbsp;&PH;</font><br>print&nbsp;&ConvVal(&JE(&ReadFileData("html/admin_header.html",3)));<br>print&nbsp;$K;<br>print&nbsp;&ConvVal(&JE(&ReadFileData("html/admin_footer.html",3)));<br>}<br> <br><br> <br>(admin.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='GetDateString.html'>前のページ</a><br>GetDateString </td>
+			<td align='right'> <a href='MakeRefresh.html'>次のページ</a><br>MakeRefresh </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

@@ -1,0 +1,64 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='GetCookie.html'>前のページ</a><br>GetCookie </td>
+			<td align='right'> <a href='GetSpecDateString.html'>次のページ</a><br>GetSpecDateString </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>PutCookie</font> --- クッキーを埋め込む
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)c_name:クッキーの名前 <br> (string)c_value:クッキーの値 <br> (string)c_time:保存する期間</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(string):"Set-Cookie..."&nbsp;の文字列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;PutCookie&nbsp;{
+ 
+	local($c_name,$c_value,$c_time)&nbsp;=&nbsp;@_;
+ 
+	($c_sec,$c_min,$c_hour,$c_mday,$c_mon,$c_year,$c_wday,$c_yday,$c_isdst)&nbsp;=&nbsp;localtime(time&nbsp;+&nbsp;$c_time&nbsp;*&nbsp;60&nbsp;*&nbsp;60);
+ 
+	$c_year&nbsp;=&nbsp;$c_year&nbsp;+&nbsp;1900;&nbsp;#重要！&nbsp;これで&nbsp;c_year&nbsp;は&nbsp;"2000"&nbsp;になる
+	if&nbsp;($c_year&nbsp;&lt;&nbsp;10)&nbsp;&nbsp;{&nbsp;$c_year&nbsp;=&nbsp;"0$c_year";&nbsp;}
+	if&nbsp;($c_sec&nbsp;&lt;&nbsp;10)&nbsp;&nbsp;&nbsp;{&nbsp;$c_sec&nbsp;&nbsp;=&nbsp;"0$c_sec";&nbsp;&nbsp;}
+	if&nbsp;($c_min&nbsp;&lt;&nbsp;10)&nbsp;&nbsp;&nbsp;{&nbsp;$c_min&nbsp;&nbsp;=&nbsp;"0$c_min";&nbsp;&nbsp;}
+	if&nbsp;($c_hour&nbsp;&lt;&nbsp;10)&nbsp;&nbsp;{&nbsp;$c_hour&nbsp;=&nbsp;"0$c_hour";&nbsp;}
+	if&nbsp;($c_mday&nbsp;&lt;&nbsp;10)&nbsp;&nbsp;{&nbsp;$c_mday&nbsp;=&nbsp;"0$c_mday";&nbsp;}
+ 
+	#曜日配列作成
+	@day&nbsp;=&nbsp;qw(		Sun		Mon		Tue		Wed		Thu		Fri		Sat	);
+	#月配列作成
+	@month&nbsp;=&nbsp;qw(		Jan&nbsp;Feb&nbsp;Mar&nbsp;Apr&nbsp;May&nbsp;Jun&nbsp;Jul&nbsp;Aug&nbsp;Sep&nbsp;Oct&nbsp;Nov&nbsp;Dec	);
+ 
+	#曜日設定
+	$c_day&nbsp;=&nbsp;@day[$c_wday];
+	#月設定
+	$c_month&nbsp;=&nbsp;@month[$c_mon];
+ 
+	#期限文字列作成
+	$c_expires&nbsp;=&nbsp;"$c_day,&nbsp;$c_mday\-$c_month\-$c_year&nbsp;$c_hour:$c_min:$c_sec&nbsp;GMT";
+ 
+	#値を返す
+	return&nbsp;"Set-Cookie:&nbsp;$c_name=$c_value;&nbsp;expires=$c_expires\n";
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'>$COOKIE{'KANRI-id'}&nbsp;=&nbsp;"k"&nbsp;.&nbsp;$tmp01;<br> <br>$InLine&nbsp;=&nbsp;join($INI{"GROBAL-StrODJ"},$form{'id'},$form{'ps'});<br>&RecordFileData("$INI{'GROBAL-KanriFilePath'}$COOKIE{'KANRI-id'}",3,$InLine);<br> <br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>print&nbsp;&PutCookie("KANRI","id:$COOKIE{'KANRI-id'}",$INI{'GROBAL-CookieExpire'});</font><br>}&nbsp;else&nbsp;{<br>$Match_Flag&nbsp;=&nbsp;"0";<br>}<br> <br><br> <br><br>(kanri.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='GetCookie.html'>前のページ</a><br>GetCookie </td>
+			<td align='right'> <a href='GetSpecDateString.html'>次のページ</a><br>GetSpecDateString </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

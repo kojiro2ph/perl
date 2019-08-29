@@ -1,0 +1,66 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='KstdSendMail.html'>前のページ</a><br>KstdSendMail </td>
+			<td align='right'> <a href='CheckIsNULLInHashWithFilter.html'>次のページ</a><br>CheckIsNULLInHashWithFilter </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>KstdNETxSMTP</font> --- NETモジュールでメールを送信する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)mode:オプション1:標準 <br> (string)smtpsrv:smtpサーバー情報 <br> (string)from:送信者情報 <br> (string)to:宛先情報 <br> (string)subject:件名 <br> (string)content:内容</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>なし</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;KstdNETxSMTP&nbsp;{
+	local($mode,$smtpsrv,$from,$to,$subject,$content)&nbsp;=&nbsp;@_;
+ 
+	if($smtpsrv&nbsp;=~&nbsp;/(net|com|org)/)&nbsp;{
+		($host,$domain)&nbsp;=&nbsp;$smtpsrv&nbsp;=~&nbsp;/(.*?)\.(.*)/;
+	}&nbsp;elsif($smtpsrv&nbsp;=~&nbsp;/(ne\.jp|co\.jp|or\.jp)/)&nbsp;{
+		($host,$domain)&nbsp;=&nbsp;$smtpsrv&nbsp;=~&nbsp;/(.*?)\.(.*)/;
+	}
+ 
+
+	if($mode&nbsp;eq&nbsp;1)&nbsp;{
+ 
+		$smtp&nbsp;=&nbsp;Net::SMTP-&gt;new($smtpsrv,Hello=&gt;$domain)&nbsp;or&nbsp;die&nbsp;"X&nbsp;$host,$domain";
+ 
+		$smtp-&gt;mail($from);
+		$smtp-&gt;to($to);
+ 
+		$content&nbsp;=&nbsp;&JJ($content);
+ 
+		$smtp-&gt;data();
+		$smtp-&gt;datasend("Subject:&nbsp;$subject\n");
+		$smtp-&gt;datasend("Content-Type:&nbsp;text/plain;&nbsp;charset=ISO-2022-JP\n");
+		$smtp-&gt;datasend("From:$from\n");
+		$smtp-&gt;datasend("To:$to\n");
+		$smtp-&gt;datasend("\n");
+		$smtp-&gt;datasend("$content\n");
+ 
+		$smtp-&gt;dataend();
+		$smtp-&gt;quit;
+	}
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br> <br>if($ENV{'HTTP_HOST'}&nbsp;eq&nbsp;"www.gurume.net")&nbsp;{<br>&KstdSendMail(1,$INI{'GROBAL-SendMailPath'},"gurume\@gurume.net",$Email,$Sbj,$MailStr);<br>}&nbsp;else&nbsp;{<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>&KstdNETxSMTP(1,$INI{'GROBAL-MailSrv'},"gurume\@gurume.net",$Email,$Sbj,$MailStr);</font><br>}<br> <br>#メンバーＩＤが入っていたらメンバーに登録する&nbsp;==========<br>if($form{'UserID'}&nbsp;ne&nbsp;"")&nbsp;{<br> <br><br> <br>(member.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='KstdSendMail.html'>前のページ</a><br>KstdSendMail </td>
+			<td align='right'> <a href='CheckIsNULLInHashWithFilter.html'>次のページ</a><br>CheckIsNULLInHashWithFilter </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

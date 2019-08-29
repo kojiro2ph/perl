@@ -1,0 +1,50 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='KstdNETxSMTP.html'>前のページ</a><br>KstdNETxSMTP </td>
+			<td align='right'> <a href='ConvPriceComma.html'>次のページ</a><br>ConvPriceComma </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>CheckIsNULLInHashWithFilter</font> --- 連想配列の中での空チェック
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string array)remove:チェックしないキー <br> (hash)hash:連想配列</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(integer)1&nbsp;or&nbsp;0</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;CheckIsNULLInHashWithFilter&nbsp;{
+	local(*remove,*hash)&nbsp;=&nbsp;@_;
+	local($k,$v);
+ 
+	while(($k,$v)&nbsp;=&nbsp;each&nbsp;%hash)&nbsp;{
+		if(&StringMatchToArray($k,@remove)&nbsp;ne&nbsp;1)&nbsp;{
+			if($v&nbsp;eq&nbsp;"")&nbsp;{
+				$pNULL&nbsp;=&nbsp;$k;
+				return&nbsp;1;
+			}
+		}
+	}
+ 
+	return&nbsp;0;
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br>$Back&nbsp;=&nbsp;"&lt;p&gt;&nbsp;&lt;a&nbsp;href=\"javascript:history.back(-1)\"&gt;戻る&lt;/a&gt;";<br> <br>#未入力チェック----<br>@remove&nbsp;=&nbsp;qw(Comment&nbsp;DxComment&nbsp;Status&nbsp;cur_ip&nbsp;Email&nbsp;DxEmail&nbsp;DxNoshi&nbsp;DxGift);<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>if(&CheckIsNULLInHashWithFilter(*remove,*form)&nbsp;eq&nbsp;1)&nbsp;{</font><br>#@x&nbsp;=&nbsp;&ListHash(1,%form);<br>&Err001("&nbsp;$fred『$INI{\"FORM_ORDER-$pNULL\"}』$fc&nbsp;$pNULL&nbsp;が入力されてません&nbsp;$Back");<br>}<br> <br><br> <br><br>(order.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='KstdNETxSMTP.html'>前のページ</a><br>KstdNETxSMTP </td>
+			<td align='right'> <a href='ConvPriceComma.html'>次のページ</a><br>ConvPriceComma </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

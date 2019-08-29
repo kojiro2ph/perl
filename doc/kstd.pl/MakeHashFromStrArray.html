@@ -1,0 +1,47 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeSelectionByStrArray.html'>前のページ</a><br>MakeSelectionByStrArray </td>
+			<td align='right'> <a href='MakeDateSelection.html'>次のページ</a><br>MakeDateSelection </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>MakeHashFromStrArray</font> --- 配列から&nbsp;Hash&nbsp;を作成する
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string array)strarray:k=vの配列</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>(hash)連想配列</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;MakeHashFromStrArray&nbsp;{
+	local(@strarray)&nbsp;=&nbsp;@_;
+	local($i,$k,$v,%hash);
+ 
+
+	for($i&nbsp;=&nbsp;0;&nbsp;$i&nbsp;&lt;=&nbsp;$#strarray;&nbsp;$i++)&nbsp;{
+		($k,$v)&nbsp;=&nbsp;split(/=/,$strarray[$i]);
+		$hash{$k}&nbsp;=&nbsp;$v;
+	}
+ 
+	return&nbsp;%hash;
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br>#&nbsp;変数準備&nbsp;------------------&nbsp;ここから		<br> <br>#if($form{'ShopName'}&nbsp;eq&nbsp;"")&nbsp;{<br>#	%form&nbsp;=&nbsp;();<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>#	%form&nbsp;=&nbsp;&MakeHashFromStrArray(@FrmShopregArray);</font><br>#}<br> <br>#&nbsp;変数整理&nbsp;------------------&nbsp;ここから<br> <br><br> <br><br>(kanri.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeSelectionByStrArray.html'>前のページ</a><br>MakeSelectionByStrArray </td>
+			<td align='right'> <a href='MakeDateSelection.html'>次のページ</a><br>MakeDateSelection </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			

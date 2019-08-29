@@ -1,0 +1,42 @@
+
+			<html>
+			<body>
+			<center><font style='font-weight:bold;'>kstd.plマニュアル</font></center>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeTableFromSTH.html'>前のページ</a><br>MakeTableFromSTH </td>
+			<td align='right'> <a href='MakeArrayBySpecCat.html'>次のページ</a><br>MakeArrayBySpecCat </td>
+			</tr></table>
+			
+			<hr>
+			<font style='font-size:15pt;font-weight:bold'>ExecSQL</font> --- ＳＱＬ実行
+			<p>
+			<table style='font-size:10pt;'><tr><td valign='top'>渡し値</td><td valign='top'>(string)cmd:SQLコマンド文字列</td></tr></table>
+			<table style='font-size:10pt;'><tr><td valign='top'>戻り値</td><td valign='top'>なし</td></tr></table>
+			<p>
+			<!-- ソースコード -->
+			<table border='0'><tr><td><pre><font style='font-size:8pt;'>sub&nbsp;ExecSQL&nbsp;{
+	local($cmd)&nbsp;=&nbsp;@_;	
+ 
+	$sth&nbsp;=&nbsp;$dbh-&gt;prepare($cmd);
+	$sth-&gt;execute();
+ 
+}
+</font></pre></td></tr></table>
+
+			
+				<!-- 実際に使っているソースのサンプル -->
+				サンプル
+				<table border='0' bgcolor='#000000' cellpadding='5' cellspacing='1'><tr><td bgcolor='#FFFFFF'><pre><font style='font-size:8pt;'><br> <br><br> <br>#店舗情報取得&nbsp;-----------<br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>&ExecSQL("DESC&nbsp;$INI{'GROBAL-GDBName'}");</font><br>@qfld&nbsp;=&nbsp;&MakeArrayBySpecCat("Field");<br>$q&nbsp;=&nbsp;"SELECT&nbsp;*&nbsp;from&nbsp;$INI{'GROBAL-GDBName'}&nbsp;WHERE&nbsp;GoodsID&nbsp;=&nbsp;\'$form{'gid'}\'";<br> <br><font style='color:#FF0000;font-size:9pt;font-weight:bold;'>&ExecSQL($q);</font><br>&GetValueFromSTH(2,"",*qfld);<br> <br><br>(bbs.cgiから引用)</font></pre></td></tr></table>
+				
+
+			<hr>
+			
+			<table border='0' width='100%' style='font-size:11pt;'><tr>
+			<td align='left'> <a href='MakeTableFromSTH.html'>前のページ</a><br>MakeTableFromSTH </td>
+			<td align='right'> <a href='MakeArrayBySpecCat.html'>次のページ</a><br>MakeArrayBySpecCat </td>
+			</tr></table>
+			
+			</body>
+			</html>
+			
